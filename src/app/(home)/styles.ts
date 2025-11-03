@@ -13,6 +13,39 @@ export const Container = styled.div`
   padding: 50px 24px 100px;
   box-sizing: border-box;
   margin: 0;
+  position: relative;
+
+  /* Sun shining effect overlay covering whole page */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.7) 0%,
+      rgba(255, 255, 200, 0.5) 15%,
+      rgba(255, 255, 150, 0.3) 30%,
+      rgba(255, 255, 100, 0.15) 45%,
+      rgba(255, 255, 50, 0.05) 60%,
+      transparent 80%
+    );
+    pointer-events: none;
+    z-index: 0;
+    animation: sunOverlay 3s ease-in-out infinite;
+  }
+
+  @keyframes sunOverlay {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.85;
+    }
+  }
+
   * {
     box-sizing: border-box;
     margin: 0;
@@ -27,6 +60,8 @@ export const Content = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
+  position: relative;
+  z-index: 1;
 `;
 
 export const ComingSoonText = styled.h1`
@@ -44,10 +79,26 @@ export const ComingSoonText = styled.h1`
 
 export const LogoContainer = styled.div`
   margin-top: 50px;
+  position: relative;
+  padding: 40px;
+
+  /* Sun shining effect with radial gradient */
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 200, 0.8) 20%,
+    rgba(255, 255, 150, 0.6) 40%,
+    rgba(255, 255, 100, 0.3) 60%,
+    rgba(255, 255, 50, 0.1) 80%,
+    transparent 100%
+  );
 
   img {
     max-height: 100px;
     width: 100%;
+    position: relative;
+    z-index: 1;
+    filter: brightness(1.1) contrast(1.1);
   }
 `;
 
