@@ -9,12 +9,12 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@ant-design/nextjs-registry": "^1.2.0",
-    "antd": "^5.28.0",
+    "@tailwindcss/postcss": "^4.1.16",
     "next": "16.0.1",
+    "postcss": "^8.5.6",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "styled-components": "^6.1.19",
+    "tailwindcss": "^4.1.16",
     "zustand": "^5.0.8"
   },
   "devDependencies": {

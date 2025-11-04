@@ -1,6 +1,7 @@
 import Providers from "@/lib/providers";
 import type { Metadata } from "next";
 import { PT_Serif } from "next/font/google";
+import "./globals.css";
 
 const font = PT_Serif({
   variable: "--font-serif",
