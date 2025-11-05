@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: satisfill_db
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DB}
+
+volumes:
+  postgres:
+    name: satisfill_postgres

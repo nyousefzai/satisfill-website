@@ -19,7 +19,10 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@/api/*": ["./src/app/api/*"],
+      "@/api-query": ["./generated/api/index"],
+      "@/prisma/*": ["./generated/prisma/*"]
     }
   },
   "include": [
@@ -28,7 +31,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts"
+    "**/*.mts",
+    "prisma/schema.prisma",
+    "generated/api/*"
   ],
   "exclude": ["node_modules"]
 }

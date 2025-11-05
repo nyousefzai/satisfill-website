@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
+import { Spinner } from "../ui/spinner";
 
 export default function SubscriptionCard({
   title,
@@ -7,12 +8,14 @@ export default function SubscriptionCard({
   onJoinNow,
   joinText = "Join Now",
   highlight = true,
+  loading = false,
 }: {
   title: string;
   description: ReactNode;
   onJoinNow?: () => void;
   joinText?: string;
   highlight?: boolean;
+  loading?: boolean;
 }) {
   return (
     <div
@@ -33,8 +36,11 @@ export default function SubscriptionCard({
         <div className="p-6 text-center text-3xl font-bold">{description}</div>
 
         <div className="mt-auto px-4">
-          <button className="bg-yellow-200 border w-full border-black py-2 px-4 rounded-full text-2xl font-bold">
-            {joinText}
+          <button
+            onClick={() => onJoinNow?.()}
+            className="bg-yellow-200 border w-full border-black py-2 px-4 rounded-full text-2xl font-bold"
+          >
+            {loading ? <Spinner /> : ""} {joinText}
           </button>
         </div>
       </div>

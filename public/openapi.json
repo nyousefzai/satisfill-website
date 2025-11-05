@@ -1,0 +1,987 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "My API",
+    "description": "My API description.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/auth/logout": {
+      "post": {
+        "operationId": "logout",
+        "responses": {
+          "200": {
+            "description": "Response for status 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Logout200ResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unknown error occurred, trying again might help.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorMessage" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/me": {
+      "get": {
+        "operationId": "getCurrentUser",
+        "responses": {
+          "200": {
+            "description": "Response for status 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCurrentUser200ResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unknown error occurred, trying again might help.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorMessage" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/request-magic-link": {
+      "post": {
+        "operationId": "requestMagicLink",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestMagicLinkRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Response for status 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestMagicLink200ResponseBody"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Response for status 400",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestMagicLink400ResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unknown error occurred, trying again might help.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorMessage" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/verify-magic-link": {
+      "post": {
+        "operationId": "verifyMagicLink",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifyMagicLinkRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Response for status 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyMagicLink200ResponseBody"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Response for status 400",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyMagicLink400ResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unknown error occurred, trying again might help.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorMessage" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/subscription": {
+      "get": {
+        "operationId": "getCurrentSubscription",
+        "responses": {
+          "473": {
+            "description": "Response for status 473",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCurrentSubscription473ResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unknown error occurred, trying again might help.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorMessage" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createSubscription",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSubscriptionRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Response for status 201",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateSubscription201ResponseBody"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Response for status 401",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateSubscription401ResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unknown error occurred, trying again might help.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorMessage" }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateSubscription",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSubscriptionRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Response for status 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateSubscription200ResponseBody"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Response for status 401",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateSubscription401ResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unknown error occurred, trying again might help.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorMessage" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "replaceSubscription",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReplaceSubscriptionRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Response for status 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReplaceSubscription200ResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unknown error occurred, trying again might help.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorMessage" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "cancelSubscription",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CancelSubscriptionRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Response for status 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CancelSubscription200ResponseBody"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Response for status 401",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CancelSubscription401ResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unknown error occurred, trying again might help.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorMessage" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/subscription/plans": {
+      "get": {
+        "operationId": "listPlans",
+        "responses": {
+          "200": {
+            "description": "Response for status 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListPlans200ResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unknown error occurred, trying again might help.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorMessage" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CancelSubscription200ResponseBody": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "object": { "type": "string" },
+          "status": { "type": "string" },
+          "cancel_at_period_end": { "type": "boolean" },
+          "current_period_start": { "type": "number" },
+          "current_period_end": { "type": "number" },
+          "items": {
+            "type": "object",
+            "properties": {
+              "object": { "type": "string" },
+              "data": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "price": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "object": { "type": "string" },
+                        "unit_amount": { "type": "number", "nullable": true },
+                        "currency": { "type": "string" },
+                        "nickname": { "type": "string", "nullable": true },
+                        "product": {
+                          "anyOf": [
+                            { "type": "string" },
+                            {
+                              "type": "object",
+                              "properties": {},
+                              "additionalProperties": true
+                            }
+                          ]
+                        },
+                        "recurring": {
+                          "type": "object",
+                          "properties": {
+                            "interval": {
+                              "type": "string",
+                              "enum": ["day", "week", "month", "year"]
+                            },
+                            "interval_count": { "type": "number" }
+                          },
+                          "additionalProperties": false,
+                          "nullable": true
+                        }
+                      },
+                      "required": ["id"],
+                      "additionalProperties": false
+                    },
+                    "quantity": { "type": "number" }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "latest_invoice": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "object": { "type": "string" },
+              "amount_due": { "type": "number" },
+              "currency": { "type": "string" },
+              "status": { "type": "string" },
+              "payment_intent": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "string" },
+                  "object": { "type": "string" },
+                  "amount": { "type": "number" },
+                  "currency": { "type": "string" },
+                  "status": { "type": "string" },
+                  "client_secret": { "type": "string", "nullable": true }
+                },
+                "required": ["id"],
+                "additionalProperties": false,
+                "nullable": true
+              }
+            },
+            "required": ["id"],
+            "additionalProperties": false,
+            "nullable": true
+          }
+        },
+        "required": ["id"],
+        "additionalProperties": false
+      },
+      "CancelSubscription401ResponseBody": { "type": "string" },
+      "CancelSubscriptionRequestBody": {
+        "type": "object",
+        "properties": {
+          "subscriptionId": { "type": "string" },
+          "atPeriodEnd": { "type": "boolean" }
+        },
+        "required": ["subscriptionId"],
+        "additionalProperties": false
+      },
+      "CreateSubscription201ResponseBody": {
+        "type": "object",
+        "properties": {
+          "subscription": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "object": { "type": "string" },
+              "status": { "type": "string" },
+              "cancel_at_period_end": { "type": "boolean" },
+              "current_period_start": { "type": "number" },
+              "current_period_end": { "type": "number" },
+              "items": {
+                "type": "object",
+                "properties": {
+                  "object": { "type": "string" },
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "price": {
+                          "type": "object",
+                          "properties": {
+                            "id": { "type": "string" },
+                            "object": { "type": "string" },
+                            "unit_amount": {
+                              "type": "number",
+                              "nullable": true
+                            },
+                            "currency": { "type": "string" },
+                            "nickname": { "type": "string", "nullable": true },
+                            "product": {
+                              "anyOf": [
+                                { "type": "string" },
+                                {
+                                  "type": "object",
+                                  "properties": {},
+                                  "additionalProperties": true
+                                }
+                              ]
+                            },
+                            "recurring": {
+                              "type": "object",
+                              "properties": {
+                                "interval": {
+                                  "type": "string",
+                                  "enum": ["day", "week", "month", "year"]
+                                },
+                                "interval_count": { "type": "number" }
+                              },
+                              "additionalProperties": false,
+                              "nullable": true
+                            }
+                          },
+                          "required": ["id"],
+                          "additionalProperties": false
+                        },
+                        "quantity": { "type": "number" }
+                      },
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "additionalProperties": false
+              },
+              "latest_invoice": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "string" },
+                  "object": { "type": "string" },
+                  "amount_due": { "type": "number" },
+                  "currency": { "type": "string" },
+                  "status": { "type": "string" },
+                  "payment_intent": {
+                    "type": "object",
+                    "properties": {
+                      "id": { "type": "string" },
+                      "object": { "type": "string" },
+                      "amount": { "type": "number" },
+                      "currency": { "type": "string" },
+                      "status": { "type": "string" },
+                      "client_secret": { "type": "string", "nullable": true }
+                    },
+                    "required": ["id"],
+                    "additionalProperties": false,
+                    "nullable": true
+                  }
+                },
+                "required": ["id"],
+                "additionalProperties": false,
+                "nullable": true
+              }
+            },
+            "required": ["id"],
+            "additionalProperties": false
+          },
+          "clientSecret": { "type": "string", "nullable": true }
+        },
+        "required": ["subscription"],
+        "additionalProperties": false
+      },
+      "CreateSubscription401ResponseBody": { "type": "string" },
+      "CreateSubscriptionRequestBody": {
+        "type": "object",
+        "properties": { "priceId": { "type": "string" } },
+        "required": ["priceId"],
+        "additionalProperties": false
+      },
+      "ErrorMessage": {
+        "type": "object",
+        "properties": { "message": { "type": "string" } },
+        "additionalProperties": false
+      },
+      "GetCurrentSubscription473ResponseBody": {
+        "type": "object",
+        "properties": {
+          "subscription": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "object": { "type": "string" },
+              "status": { "type": "string" },
+              "cancel_at_period_end": { "type": "boolean" },
+              "current_period_start": { "type": "number" },
+              "current_period_end": { "type": "number" },
+              "items": {
+                "type": "object",
+                "properties": {
+                  "object": { "type": "string" },
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "price": {
+                          "type": "object",
+                          "properties": {
+                            "id": { "type": "string" },
+                            "object": { "type": "string" },
+                            "unit_amount": {
+                              "type": "number",
+                              "nullable": true
+                            },
+                            "currency": { "type": "string" },
+                            "nickname": { "type": "string", "nullable": true },
+                            "product": {
+                              "anyOf": [
+                                { "type": "string" },
+                                {
+                                  "type": "object",
+                                  "properties": {},
+                                  "additionalProperties": true
+                                }
+                              ]
+                            },
+                            "recurring": {
+                              "type": "object",
+                              "properties": {
+                                "interval": {
+                                  "type": "string",
+                                  "enum": ["day", "week", "month", "year"]
+                                },
+                                "interval_count": { "type": "number" }
+                              },
+                              "additionalProperties": false,
+                              "nullable": true
+                            }
+                          },
+                          "required": ["id"],
+                          "additionalProperties": false
+                        },
+                        "quantity": { "type": "number" }
+                      },
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "additionalProperties": false
+              },
+              "latest_invoice": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "string" },
+                  "object": { "type": "string" },
+                  "amount_due": { "type": "number" },
+                  "currency": { "type": "string" },
+                  "status": { "type": "string" },
+                  "payment_intent": {
+                    "type": "object",
+                    "properties": {
+                      "id": { "type": "string" },
+                      "object": { "type": "string" },
+                      "amount": { "type": "number" },
+                      "currency": { "type": "string" },
+                      "status": { "type": "string" },
+                      "client_secret": { "type": "string", "nullable": true }
+                    },
+                    "required": ["id"],
+                    "additionalProperties": false,
+                    "nullable": true
+                  }
+                },
+                "required": ["id"],
+                "additionalProperties": false,
+                "nullable": true
+              }
+            },
+            "required": ["id"],
+            "additionalProperties": false,
+            "nullable": true
+          }
+        },
+        "required": ["subscription"],
+        "additionalProperties": false
+      },
+      "GetCurrentUser200ResponseBody": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string", "nullable": true },
+              "email": { "type": "string", "format": "email" },
+              "image": { "type": "string", "nullable": true },
+              "address": { "type": "string", "nullable": true },
+              "phoneNumber": { "type": "string", "nullable": true },
+              "createdAt": { "type": "string", "format": "date-time" },
+              "updatedAt": { "type": "string", "format": "date-time" }
+            },
+            "required": [
+              "id",
+              "name",
+              "email",
+              "image",
+              "address",
+              "phoneNumber",
+              "createdAt",
+              "updatedAt"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          }
+        },
+        "required": ["user"],
+        "additionalProperties": false
+      },
+      "ListPlans200ResponseBody": { "type": "array" },
+      "Logout200ResponseBody": {
+        "type": "object",
+        "properties": { "message": { "type": "string" } },
+        "required": ["message"],
+        "additionalProperties": false
+      },
+      "ReplaceSubscription200ResponseBody": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "object": { "type": "string" },
+          "status": { "type": "string" },
+          "cancel_at_period_end": { "type": "boolean" },
+          "current_period_start": { "type": "number" },
+          "current_period_end": { "type": "number" },
+          "items": {
+            "type": "object",
+            "properties": {
+              "object": { "type": "string" },
+              "data": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "price": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "object": { "type": "string" },
+                        "unit_amount": { "type": "number", "nullable": true },
+                        "currency": { "type": "string" },
+                        "nickname": { "type": "string", "nullable": true },
+                        "product": {
+                          "anyOf": [
+                            { "type": "string" },
+                            {
+                              "type": "object",
+                              "properties": {},
+                              "additionalProperties": true
+                            }
+                          ]
+                        },
+                        "recurring": {
+                          "type": "object",
+                          "properties": {
+                            "interval": {
+                              "type": "string",
+                              "enum": ["day", "week", "month", "year"]
+                            },
+                            "interval_count": { "type": "number" }
+                          },
+                          "additionalProperties": false,
+                          "nullable": true
+                        }
+                      },
+                      "required": ["id"],
+                      "additionalProperties": false
+                    },
+                    "quantity": { "type": "number" }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "latest_invoice": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "object": { "type": "string" },
+              "amount_due": { "type": "number" },
+              "currency": { "type": "string" },
+              "status": { "type": "string" },
+              "payment_intent": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "string" },
+                  "object": { "type": "string" },
+                  "amount": { "type": "number" },
+                  "currency": { "type": "string" },
+                  "status": { "type": "string" },
+                  "client_secret": { "type": "string", "nullable": true }
+                },
+                "required": ["id"],
+                "additionalProperties": false,
+                "nullable": true
+              }
+            },
+            "required": ["id"],
+            "additionalProperties": false,
+            "nullable": true
+          }
+        },
+        "required": ["id"],
+        "additionalProperties": false
+      },
+      "ReplaceSubscriptionRequestBody": {
+        "type": "object",
+        "properties": {
+          "subscriptionId": { "type": "string" },
+          "priceId": { "type": "string" }
+        },
+        "required": ["subscriptionId", "priceId"],
+        "additionalProperties": false
+      },
+      "RequestMagicLink200ResponseBody": {
+        "type": "object",
+        "properties": { "message": { "type": "string" } },
+        "required": ["message"],
+        "additionalProperties": false
+      },
+      "RequestMagicLink400ResponseBody": {
+        "type": "object",
+        "properties": { "error": { "type": "string" } },
+        "required": ["error"],
+        "additionalProperties": false
+      },
+      "RequestMagicLinkRequestBody": {
+        "type": "object",
+        "properties": { "email": { "type": "string", "format": "email" } },
+        "required": ["email"],
+        "additionalProperties": false
+      },
+      "UpdateSubscription200ResponseBody": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "object": { "type": "string" },
+          "status": { "type": "string" },
+          "cancel_at_period_end": { "type": "boolean" },
+          "current_period_start": { "type": "number" },
+          "current_period_end": { "type": "number" },
+          "items": {
+            "type": "object",
+            "properties": {
+              "object": { "type": "string" },
+              "data": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "price": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "object": { "type": "string" },
+                        "unit_amount": { "type": "number", "nullable": true },
+                        "currency": { "type": "string" },
+                        "nickname": { "type": "string", "nullable": true },
+                        "product": {
+                          "anyOf": [
+                            { "type": "string" },
+                            {
+                              "type": "object",
+                              "properties": {},
+                              "additionalProperties": true
+                            }
+                          ]
+                        },
+                        "recurring": {
+                          "type": "object",
+                          "properties": {
+                            "interval": {
+                              "type": "string",
+                              "enum": ["day", "week", "month", "year"]
+                            },
+                            "interval_count": { "type": "number" }
+                          },
+                          "additionalProperties": false,
+                          "nullable": true
+                        }
+                      },
+                      "required": ["id"],
+                      "additionalProperties": false
+                    },
+                    "quantity": { "type": "number" }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "latest_invoice": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "object": { "type": "string" },
+              "amount_due": { "type": "number" },
+              "currency": { "type": "string" },
+              "status": { "type": "string" },
+              "payment_intent": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "string" },
+                  "object": { "type": "string" },
+                  "amount": { "type": "number" },
+                  "currency": { "type": "string" },
+                  "status": { "type": "string" },
+                  "client_secret": { "type": "string", "nullable": true }
+                },
+                "required": ["id"],
+                "additionalProperties": false,
+                "nullable": true
+              }
+            },
+            "required": ["id"],
+            "additionalProperties": false,
+            "nullable": true
+          }
+        },
+        "required": ["id"],
+        "additionalProperties": false
+      },
+      "UpdateSubscription401ResponseBody": { "type": "string" },
+      "UpdateSubscriptionRequestBody": {
+        "type": "object",
+        "properties": {
+          "subscriptionId": { "type": "string" },
+          "priceId": { "type": "string" }
+        },
+        "required": ["subscriptionId", "priceId"],
+        "additionalProperties": false
+      },
+      "VerifyMagicLink200ResponseBody": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string" },
+          "user": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string", "nullable": true },
+              "email": { "type": "string", "format": "email" },
+              "image": { "type": "string", "nullable": true },
+              "address": { "type": "string", "nullable": true },
+              "phoneNumber": { "type": "string", "nullable": true },
+              "createdAt": { "type": "string", "format": "date-time" },
+              "updatedAt": { "type": "string", "format": "date-time" }
+            },
+            "required": [
+              "id",
+              "name",
+              "email",
+              "image",
+              "address",
+              "phoneNumber",
+              "createdAt",
+              "updatedAt"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": ["message", "user"],
+        "additionalProperties": false
+      },
+      "VerifyMagicLink400ResponseBody": {
+        "type": "object",
+        "properties": { "error": { "type": "string" } },
+        "required": ["error"],
+        "additionalProperties": false
+      },
+      "VerifyMagicLinkRequestBody": {
+        "type": "object",
+        "properties": {
+          "token": { "type": "string", "minLength": 1 },
+          "email": { "type": "string", "format": "email" }
+        },
+        "required": ["token", "email"],
+        "additionalProperties": false
+      }
+    }
+  }
+}

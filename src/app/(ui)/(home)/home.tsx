@@ -1,7 +1,8 @@
+import AuthStatus from "@/components/auth/auth-status";
 import SubscriptionCard from "@/components/common/subscription-card";
 import Image from "next/image";
 import Link from "next/link";
-import VideoPlayer from "../../components/common/video-player";
+import VideoPlayer from "../../../components/common/video-player";
 
 const footerLinks = [
   { label: "Energy Balance", href: "#" },
@@ -51,6 +52,10 @@ export default function Home() {
               </Link>
             ))}
           </div>
+
+          <div className="ml-4">
+            <AuthStatus />
+          </div>
         </div>
       </header>
 
@@ -91,7 +96,7 @@ export default function Home() {
             </div>
 
             <div
-              className="bg-[#fcfbab] relative flex items-center justify-center mx-auto w-[400px] md:w-[600px] h-[100px] max-[770px]:w-[250px] md:h-[80px]"
+              className="bg-[#fcfbab] relative flex items-center justify-center mx-auto w-[400px] md:w-[600px] h-[100px] max-[770px]:w-[250px] md:h-20"
               style={{
                 clipPath: "polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%)",
               }}
