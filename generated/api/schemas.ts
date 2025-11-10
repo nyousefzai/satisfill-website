@@ -57,6 +57,29 @@ export type CancelSubscriptionRequestBody = {
   atPeriodEnd?: boolean;
 };
 
+export type Contact200ResponseBody = {
+  message: string;
+};
+
+export type ContactRequestBody = {
+  /**
+   * @minLength 1
+   */
+  name: string;
+  /**
+   * @format email
+   */
+  email: string;
+  /**
+   * @minLength 1
+   */
+  subject: string;
+  /**
+   * @minLength 10
+   */
+  message: string;
+};
+
 export type CreateSubscription201ResponseBody = {
   subscription: {
     id: string;

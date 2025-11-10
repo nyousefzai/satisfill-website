@@ -28,6 +28,7 @@ export class SubscriptionService {
       active: true,
       expand: ["data.product"],
       limit: 100,
+      type: "recurring",
     });
 
     return prices.data.map((p) => ({

@@ -1,6 +1,7 @@
 "use client";
 
 import AppetiteFulfillment from "./appetite-fulfillment";
+import ContactUs from "./contact-us";
 import EasiestDietToFollow from "./easiest-diet-to-follow";
 import Home from "./home";
 import MembershipPlansAndPricing from "./membership-plans-and-pricing";
@@ -18,6 +19,8 @@ export default function HomePage() {
       <NutritionAndHealth />
 
       <MembershipPlansAndPricing />
+
+      <ContactUs />
     </>
   );
 }

@@ -378,7 +378,7 @@ export default function MembershipPlansAndPricing() {
             </div>
           </div>
 
-          <div className="my-20">
+          <div className="my-20" id="energy-balance">
             <div>
               <p className="text-center text-2xl text-sky-700">
                 <b>The Principle of Energy Balance</b>{" "}
@@ -513,7 +513,7 @@ export default function MembershipPlansAndPricing() {
             </div>
           </div>
 
-          <div>
+          <div id="bmi">
             <p className="text-center text-2xl text-sky-700">
               <b>Body Mass Index (BMI)</b>{" "}
             </p>
@@ -595,7 +595,7 @@ export default function MembershipPlansAndPricing() {
             />
           </div>
 
-          <div className="my-20">
+          <div className="my-20" id="exercise">
             <p className="text-center text-2xl text-sky-700">
               <b>Exercise</b>{" "}
             </p>
@@ -733,6 +733,159 @@ export default function MembershipPlansAndPricing() {
                 </Fragment>
               ))}
             </table>
+          </div>
+
+          <div className="my-20">
+            <p className="text-2xl text-sky-700">
+              <b>Tuning Up Your Metabolic Engine</b>{" "}
+            </p>
+            <br />
+            We made the analogy that our metabolism is the engine that powers
+            our bodies, and that regular aerobic exercise keeps our metabolic
+            engine tuned up and running properly. So the question is — How much
+            aerobic exercise is needed to “tune up” your metabolic engine?
+            <br />
+            <br />
+            Aerobic exercise needs to engage the large muscles of your lower
+            body to work your heart (cardio) and lungs (respiratory) hard enough
+            and long enough to produce what is called the —{" "}
+            <b>training effect</b> — which leads to aerobic conditioning or
+            fitness, and most importantly, which leads to a “tune up” of your
+            metabolic engine.
+            <br />
+            <br />
+            The training effect is achieved by applying the “<b>FIT</b>”
+            acronym, which stands for — <b>Frequency, Intensity, and Time</b>.
+            To produce a good training effect, you must exercise often enough
+            (Frequency), hard enough (Intensity), and long enough (Time). Based
+            on our research, our recommendation for how much aerobic exercise is
+            needed to produce an excellent training effect, and how much is
+            needed to fully “tune up” your metabolic engine is as follows —
+            <br />
+            <br />
+            <p className="pl-8">
+              {" "}
+              <b>Frequency</b> — How many times per week.
+              <br />
+              <br />
+              <p className="pl-8">
+                Getting Started — 3 to 4 times per week.
+                <br />
+                <br />
+                Recommended Target — 6 times per week.
+              </p>
+            </p>
+            <br />
+            <p className="pl-8">
+              <b>Time (Duration)</b> — How long or how many minutes.
+              <br />
+              <br />
+              <p className="pl-8">
+                Getting Sarted — 15 to 20 minutes.
+                <br />
+                <br />
+                Recommended Target — 30 minutes.
+                <br />
+                <br />
+              </p>
+              <b> Intensity</b> — How much exertion, based on heart rate.
+              <br />
+            </p>
+          </div>
+
+          <div className="my-20">
+            <p className="text-2xl text-sky-700">
+              <b> Intensity</b>
+            </p>
+            <br />
+            The intensity of your aerobic exercise workout refers to how hard
+            you are working, and hence, how fast your heart is beating. All
+            available research and data indicates that to produce a{" "}
+            <b>training effect</b>, and to achieve a <b>metabolic tune up</b>,
+            you need to exercise at <b>50% to 80%</b> of your maximum heart
+            rate. This range is referred to as your{" "}
+            <b>Target Heart Rate Zone.</b> <br />
+            <br />
+            To determine your Zone, start by finding your maximum heart rate,
+            using the chart below entitled —{" "}
+            <b>Estimated Maximum Heart Rates</b>. Simply locate your age, to the
+            nearest five years, in the left hand column, then locate your
+            fitness level column, based on the descriptions at the bottom. The
+            number indicated is your estimated maximum heart rate.
+            <br />
+            <br />
+            <Image
+              src="/heart-rates.png"
+              alt="Heart rates"
+              width={400}
+              height={600}
+              className="w-full h-full mx-auto max-w-lg"
+            />
+          </div>
+
+          <div className="my-20">
+            <p className="text-2xl text-sky-700">
+              <b>How to Calculate Your Target Heart Rate Zone</b>
+            </p>
+            To calculate your Target Heart Rate Zone, use the following example
+            —<br />
+            <br />
+            <p className="pl-8">
+              If you are 50 years old, with average fitness, you would have a
+              maximum heart rate of — <b>168</b>
+              <br />
+              <br />
+              <p className="pl-8">
+                50% -- 168 x .50 = 84 Heart Rate <br />
+                <br />
+                80% -- 168 x .80 = 134 Heart Rate
+              </p>
+              <br />
+              Your Target Heart Rate Zone would be —
+              <br />
+              <br />
+              <p className="pl-8">
+                <b>84 to 134 Heart Rate</b>
+              </p>
+            </p>
+          </div>
+
+          <div className="my-20">
+            <p className="text-2xl text-sky-700">
+              <b>How to Determine Your Heart Rate</b>
+            </p>
+            <br />
+            There are two primary methods used to determine your heart rate
+            level —<br />
+            <br />
+            <p className="pl-8">
+              <b> Actual Heart Rate</b> — This is an objective measure that is
+              determined in one of two ways.
+              <br />
+              <br />
+              <p className="pl-8">
+                <b>Take your own pulse</b> — which can be difficult to do.
+                <br />
+                <br />
+                <b> Use a Heart Rate Monitor</b> — this would be our
+                recommendation, because they are accurate, easy to use, and
+                affordable.
+              </p>
+              <br />
+              <b> Perceived Exertion</b> — This is a subjective measure of how
+              hard you are working, based on how you feel — how out of breath
+              you are, or how much you are sweating.{" "}
+              <b>(SEE the Perceived Exertion Scale below.)</b>
+              <br />
+              <br />
+              <Image
+                src="/perceived-excretion-scale.png"
+                alt="Perceived Exertion Scale"
+                width={400}
+                height={600}
+                className="w-full h-full mx-auto max-w-lg"
+              />
+            </p>
           </div>
         </div>
       </div>

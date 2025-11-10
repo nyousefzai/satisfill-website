@@ -5,7 +5,7 @@ export default function AppetiteFulfillment() {
     <div id="appetite">
       <div
         style={{
-          backgroundImage: 'url("/sky2.jpg")',
+          backgroundImage: 'url("/sky.jpg")',
         }}
         className="bg-cover bg-center w-full"
       >
@@ -27,7 +27,7 @@ export default function AppetiteFulfillment() {
           </div>
         </header>
 
-        <div className="text-center italic py-20">
+        <div className="text-center italic py-20 px-4">
           <div className="text-3xl font-semibold mb-2">The Science of</div>
           <div className="text-4xl  font-semibold">Appetite Fulfillment</div>
 
@@ -52,7 +52,7 @@ export default function AppetiteFulfillment() {
         </div>
       </div>
 
-      <div className="section py-20 text-lg">
+      <div className="section py-20 text-lg px-4">
         <div>
           <h4 className="text-sky-700">
             <b>Physical Hunger — Your Stomach</b>

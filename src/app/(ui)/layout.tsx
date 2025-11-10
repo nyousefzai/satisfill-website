@@ -18,7 +18,7 @@ const font = localFont({
     {
       path: "./fonts/times-new-roman-bold-Italic.ttf",
       weight: "700",
-      style: "normal",
+      style: "italic",
     },
   ],
   variable: "--font-serif",
@@ -35,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body className={`${font.variable} ${font.className}`}>
         <Providers>{children}</Providers>
       </body>

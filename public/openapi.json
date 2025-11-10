@@ -144,6 +144,38 @@
         }
       }
     },
+    "/api/contact": {
+      "post": {
+        "operationId": "contact",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ContactRequestBody" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Response for status 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contact200ResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unknown error occurred, trying again might help.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorMessage" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/subscription": {
       "get": {
         "operationId": "getCurrentSubscription",
@@ -455,6 +487,23 @@
           "atPeriodEnd": { "type": "boolean" }
         },
         "required": ["subscriptionId"],
+        "additionalProperties": false
+      },
+      "Contact200ResponseBody": {
+        "type": "object",
+        "properties": { "message": { "type": "string" } },
+        "required": ["message"],
+        "additionalProperties": false
+      },
+      "ContactRequestBody": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "email": { "type": "string", "format": "email" },
+          "subject": { "type": "string", "minLength": 1 },
+          "message": { "type": "string", "minLength": 10 }
+        },
+        "required": ["name", "email", "subject", "message"],
         "additionalProperties": false
       },
       "CreateSubscription201ResponseBody": {

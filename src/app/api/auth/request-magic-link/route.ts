@@ -1,5 +1,6 @@
 import { TypedNextResponse, route, routeOperation } from "next-rest-framework";
 import { z } from "zod";
+import { EmailService } from "../../email/email.service";
 import { magicLinkRequestSchema } from "../auth.schema";
 import { AuthService } from "../auth.service";
 
@@ -28,6 +29,13 @@ export const { POST } = route({
           req.nextUrl.origin
         }/auth/verify?token=${token}&email=${encodeURIComponent(email)}`;
         console.log(`Magic link for ${email}: ${magicLink}`);
+
+        await EmailService.sendEmail({
+          to: email,
+          subject: "Your Magic Login Link",
+          text: `Click the link to log in: ${magicLink}`,
+          html: `<p>Click the link to log in: <a href="${magicLink}">${magicLink}</a></p>`,
+        });
 
         return TypedNextResponse.json({
           message:

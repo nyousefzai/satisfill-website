@@ -270,6 +270,50 @@ export const useVerifyMagicLink = (
   });
 };
 
+export type ContactError = Fetcher.ErrorWrapper<{
+  status: 500;
+  payload: Schemas.ErrorMessage;
+}>;
+
+export type ContactVariables = {
+  body: Schemas.ContactRequestBody;
+} & Context["fetcherOptions"];
+
+export const fetchContact = (
+  variables: ContactVariables,
+  signal?: AbortSignal,
+) =>
+  fetch<
+    Schemas.Contact200ResponseBody,
+    ContactError,
+    Schemas.ContactRequestBody,
+    {},
+    {},
+    {}
+  >({ url: "/api/contact", method: "post", ...variables, signal });
+
+export const useContact = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      Schemas.Contact200ResponseBody,
+      ContactError,
+      ContactVariables
+    >,
+    "mutationFn"
+  >,
+) => {
+  const { fetcherOptions } = useContext();
+  return reactQuery.useMutation<
+    Schemas.Contact200ResponseBody,
+    ContactError,
+    ContactVariables
+  >({
+    mutationFn: (variables: ContactVariables) =>
+      fetchContact(deepMerge(fetcherOptions, variables)),
+    ...options,
+  });
+};
+
 export type GetCurrentSubscriptionError = Fetcher.ErrorWrapper<
   | {
       status: 473;

@@ -5,7 +5,7 @@ export default function EasiestDietToFollow() {
     <div id="easiest-diet-to-follow">
       <div
         style={{
-          backgroundImage: 'url("/sky2.jpg")',
+          backgroundImage: 'url("/sky.jpg")',
         }}
         className="bg-cover bg-center w-full"
       >
