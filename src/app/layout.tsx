@@ -1,13 +1,27 @@
 import Providers from "@/lib/providers";
 import type { Metadata } from "next";
-import { PT_Serif } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const font = PT_Serif({
+const font = localFont({
+  src: [
+    {
+      path: "./fonts/times-new-roman.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/times-new-roman-bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "./fonts/times-new-roman-bold-Italic.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
   variable: "--font-serif",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
