@@ -3,6 +3,10 @@
  *
  * @version 1.0.0
  */
+
+// Missing type definition for Stripe price recurring interval
+export type UndefinedPriceRecurringInterval = "day" | "week" | "month" | "year";
+
 export type CancelSubscription200ResponseBody = {
   id: string;
   object?: string;
