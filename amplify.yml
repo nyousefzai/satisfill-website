@@ -21,6 +21,8 @@ frontend:
         - echo "EMAIL_PASS=" >> .env
         - echo "EMAIL_FROM=" >> .env
         - echo "EMAIL_RECEIVER=" >> .env
+        - export NEXT_PRIVATE_SKIP_PRERENDER_ERROR=1
+        - export __NEXT_DISABLE_MEMORY_WATCHER=1
         - yarn run build
   artifacts:
     baseDirectory: .next
