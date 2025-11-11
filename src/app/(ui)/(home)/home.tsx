@@ -1,4 +1,5 @@
-import SubscriptionCard from "@/components/common/subscription-card";
+import NewsLetterCard from "@/components/subscription/newsletter-card";
+import SubscriptionManagement from "@/components/subscription/subscription-management";
 import Image from "next/image";
 import Link from "next/link";
 import VideoPlayer from "../../../components/common/video-player";
@@ -169,17 +170,7 @@ export default function Home() {
               </p>
 
               <div className="mt-10 w-full">
-                <SubscriptionCard
-                  title="4 Month Plan"
-                  description={
-                    <>
-                      Only $50.00
-                      <br />
-                      50% OFF
-                    </>
-                  }
-                  onJoinNow={() => {}}
-                />
+                <SubscriptionManagement onlyShow4MonthPlan={true} />
               </div>
 
               <p className="text-4xl mt-20 font-semibold text-center">
@@ -187,19 +178,7 @@ export default function Home() {
               </p>
 
               <div className="mt-10 w-full">
-                <SubscriptionCard
-                  title="Subscribe and get"
-                  description={
-                    <>
-                      Free e-Book –<br />
-                      Best Diets
-                      <br />
-                      of 2025
-                    </>
-                  }
-                  onJoinNow={() => {}}
-                  joinText="Subscribe Now"
-                />
+                <NewsLetterCard />
               </div>
             </div>
           </div>

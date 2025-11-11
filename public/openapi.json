@@ -176,16 +176,60 @@
         }
       }
     },
+    "/api/newsletter": {
+      "post": {
+        "operationId": "subscribeNewsletter",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscribeNewsletterRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Response for status 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscribeNewsletter200ResponseBody"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unknown error occurred, trying again might help.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorMessage" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/subscription": {
       "get": {
         "operationId": "getCurrentSubscription",
         "responses": {
-          "473": {
-            "description": "Response for status 473",
+          "200": {
+            "description": "Response for status 200",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetCurrentSubscription473ResponseBody"
+                  "$ref": "#/components/schemas/GetCurrentSubscription200ResponseBody"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Response for status 401",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCurrentSubscription401ResponseBody"
                 }
               }
             }
@@ -509,6 +553,8 @@
       "CreateSubscription201ResponseBody": {
         "type": "object",
         "properties": {
+          "checkoutUrl": { "type": "string", "nullable": true },
+          "sessionId": { "type": "string", "nullable": true },
           "subscription": {
             "type": "object",
             "properties": {
@@ -606,7 +652,6 @@
           },
           "clientSecret": { "type": "string", "nullable": true }
         },
-        "required": ["subscription"],
         "additionalProperties": false
       },
       "CreateSubscription401ResponseBody": { "type": "string" },
@@ -621,7 +666,7 @@
         "properties": { "message": { "type": "string" } },
         "additionalProperties": false
       },
-      "GetCurrentSubscription473ResponseBody": {
+      "GetCurrentSubscription200ResponseBody": {
         "type": "object",
         "properties": {
           "subscription": {
@@ -717,13 +762,13 @@
               }
             },
             "required": ["id"],
-            "additionalProperties": false,
-            "nullable": true
+            "additionalProperties": false
           }
         },
         "required": ["subscription"],
         "additionalProperties": false
       },
+      "GetCurrentSubscription401ResponseBody": { "type": "string" },
       "GetCurrentUser200ResponseBody": {
         "type": "object",
         "properties": {
@@ -756,7 +801,43 @@
         "required": ["user"],
         "additionalProperties": false
       },
-      "ListPlans200ResponseBody": { "type": "array" },
+      "ListPlans200ResponseBody": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "object": { "type": "string" },
+            "unit_amount": { "type": "number", "nullable": true },
+            "currency": { "type": "string" },
+            "nickname": { "type": "string", "nullable": true },
+            "product": {
+              "anyOf": [
+                { "type": "string" },
+                {
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "recurring": {
+              "type": "object",
+              "properties": {
+                "interval": {
+                  "type": "string",
+                  "enum": ["day", "week", "month", "year"]
+                },
+                "interval_count": { "type": "number" }
+              },
+              "additionalProperties": false,
+              "nullable": true
+            }
+          },
+          "required": ["id"],
+          "additionalProperties": false
+        }
+      },
       "Logout200ResponseBody": {
         "type": "object",
         "properties": { "message": { "type": "string" } },
@@ -882,84 +963,110 @@
         "required": ["email"],
         "additionalProperties": false
       },
+      "SubscribeNewsletter200ResponseBody": {
+        "type": "object",
+        "properties": { "message": { "type": "string" } },
+        "required": ["message"],
+        "additionalProperties": false
+      },
+      "SubscribeNewsletterRequestBody": {
+        "type": "object",
+        "properties": { "email": { "type": "string", "format": "email" } },
+        "required": ["email"],
+        "additionalProperties": false
+      },
       "UpdateSubscription200ResponseBody": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "object": { "type": "string" },
-          "status": { "type": "string" },
-          "cancel_at_period_end": { "type": "boolean" },
-          "current_period_start": { "type": "number" },
-          "current_period_end": { "type": "number" },
-          "items": {
-            "type": "object",
-            "properties": {
-              "object": { "type": "string" },
-              "data": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": { "type": "string" },
-                    "price": {
-                      "type": "object",
-                      "properties": {
-                        "id": { "type": "string" },
-                        "object": { "type": "string" },
-                        "unit_amount": { "type": "number", "nullable": true },
-                        "currency": { "type": "string" },
-                        "nickname": { "type": "string", "nullable": true },
-                        "product": {
-                          "anyOf": [
-                            { "type": "string" },
-                            {
-                              "type": "object",
-                              "properties": {},
-                              "additionalProperties": true
-                            }
-                          ]
-                        },
-                        "recurring": {
-                          "type": "object",
-                          "properties": {
-                            "interval": {
-                              "type": "string",
-                              "enum": ["day", "week", "month", "year"]
-                            },
-                            "interval_count": { "type": "number" }
-                          },
-                          "additionalProperties": false,
-                          "nullable": true
-                        }
-                      },
-                      "required": ["id"],
-                      "additionalProperties": false
-                    },
-                    "quantity": { "type": "number" }
-                  },
-                  "additionalProperties": false
-                }
-              }
-            },
-            "additionalProperties": false
-          },
-          "latest_invoice": {
+          "checkoutUrl": { "type": "string", "nullable": true },
+          "sessionId": { "type": "string", "nullable": true },
+          "previousSubscriptionId": { "type": "string", "nullable": true },
+          "subscription": {
             "type": "object",
             "properties": {
               "id": { "type": "string" },
               "object": { "type": "string" },
-              "amount_due": { "type": "number" },
-              "currency": { "type": "string" },
               "status": { "type": "string" },
-              "payment_intent": {
+              "cancel_at_period_end": { "type": "boolean" },
+              "current_period_start": { "type": "number" },
+              "current_period_end": { "type": "number" },
+              "items": {
+                "type": "object",
+                "properties": {
+                  "object": { "type": "string" },
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "price": {
+                          "type": "object",
+                          "properties": {
+                            "id": { "type": "string" },
+                            "object": { "type": "string" },
+                            "unit_amount": {
+                              "type": "number",
+                              "nullable": true
+                            },
+                            "currency": { "type": "string" },
+                            "nickname": { "type": "string", "nullable": true },
+                            "product": {
+                              "anyOf": [
+                                { "type": "string" },
+                                {
+                                  "type": "object",
+                                  "properties": {},
+                                  "additionalProperties": true
+                                }
+                              ]
+                            },
+                            "recurring": {
+                              "type": "object",
+                              "properties": {
+                                "interval": {
+                                  "type": "string",
+                                  "enum": ["day", "week", "month", "year"]
+                                },
+                                "interval_count": { "type": "number" }
+                              },
+                              "additionalProperties": false,
+                              "nullable": true
+                            }
+                          },
+                          "required": ["id"],
+                          "additionalProperties": false
+                        },
+                        "quantity": { "type": "number" }
+                      },
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "additionalProperties": false
+              },
+              "latest_invoice": {
                 "type": "object",
                 "properties": {
                   "id": { "type": "string" },
                   "object": { "type": "string" },
-                  "amount": { "type": "number" },
+                  "amount_due": { "type": "number" },
                   "currency": { "type": "string" },
                   "status": { "type": "string" },
-                  "client_secret": { "type": "string", "nullable": true }
+                  "payment_intent": {
+                    "type": "object",
+                    "properties": {
+                      "id": { "type": "string" },
+                      "object": { "type": "string" },
+                      "amount": { "type": "number" },
+                      "currency": { "type": "string" },
+                      "status": { "type": "string" },
+                      "client_secret": { "type": "string", "nullable": true }
+                    },
+                    "required": ["id"],
+                    "additionalProperties": false,
+                    "nullable": true
+                  }
                 },
                 "required": ["id"],
                 "additionalProperties": false,
@@ -967,11 +1074,9 @@
               }
             },
             "required": ["id"],
-            "additionalProperties": false,
-            "nullable": true
+            "additionalProperties": false
           }
         },
-        "required": ["id"],
         "additionalProperties": false
       },
       "UpdateSubscription401ResponseBody": { "type": "string" },

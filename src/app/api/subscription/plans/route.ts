@@ -1,5 +1,6 @@
 import { TypedNextResponse, route, routeOperation } from "next-rest-framework";
 import { z } from "zod";
+import { PriceSchema } from "../subscription.schema";
 import SubscriptionService from "../subscription.service";
 
 export const { GET } = route({
@@ -10,7 +11,7 @@ export const { GET } = route({
       {
         status: 200,
         contentType: "application/json",
-        body: z.array(z.any()),
+        body: z.array(PriceSchema),
       },
     ])
     .handler(async () => {

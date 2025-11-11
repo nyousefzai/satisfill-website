@@ -3,6 +3,7 @@ import { User } from "@/prisma/client";
 import Stripe from "stripe";
 
 export class SubscriptionService {
+  // static stripe:any; // Workaround to run openapi:gen
   static stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
 
   // Ensure the user has a Stripe customer; if not, create one and persist
@@ -31,13 +32,20 @@ export class SubscriptionService {
       type: "recurring",
     });
 
-    return prices.data.map((p) => ({
-      id: p.id,
-      nickname: (p.nickname as string) || (p.product as any)?.name || null,
-      unit_amount: p.unit_amount ?? null,
-      currency: p.currency,
-      recurring: p.recurring ?? null,
-    }));
+    return prices.data
+      .filter(
+        (p) =>
+          p.product &&
+          (p.product as Stripe.Product).metadata.satisfill === "true"
+      )
+      .map((p) => ({
+        id: p.id,
+        nickname: (p.nickname as string) || (p.product as any)?.name || null,
+        unit_amount: p.unit_amount ?? null,
+        currency: p.currency,
+        recurring: p.recurring ?? null,
+      }))
+      .sort((a, b) => (a.unit_amount ?? 0) - (b.unit_amount ?? 0));
   }
 
   // Get current subscription(s) for a user (returns the most relevant active one if any)
@@ -56,22 +64,38 @@ export class SubscriptionService {
     return sub;
   }
 
-  // Create a subscription for the user
+  // Create a subscription for the user - returns checkout URL
   static async createSubscription(user: any, priceId: string) {
     const customerId = await SubscriptionService.ensureCustomer(user);
 
-    const subscription = await this.stripe.subscriptions.create({
+    // Create a Checkout Session instead of direct subscription
+    const session = await this.stripe.checkout.sessions.create({
       customer: customerId,
-      items: [{ price: priceId }],
-      expand: ["latest_invoice.payment_intent"],
-      payment_behavior: "default_incomplete",
-      // You may want to set trial or payment settings here depending on your pricing
+      mode: "subscription",
+      line_items: [
+        {
+          price: priceId,
+          quantity: 1,
+        },
+      ],
+      success_url: `${
+        process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+      }/#plans-pricing?success=true`,
+      cancel_url: `${
+        process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+      }/#plans-pricing?canceled=true`,
+      metadata: {
+        userId: user.id,
+      },
     });
 
-    return subscription;
+    return {
+      checkoutUrl: session.url,
+      sessionId: session.id,
+    };
   }
 
-  // Update subscription to a new price
+  // Update subscription to a new price - returns checkout URL if payment needed
   static async updateSubscription(
     user: any,
     subscriptionId: string,
@@ -86,20 +110,45 @@ export class SubscriptionService {
       throw new Error("Subscription not found for this user");
     }
 
-    const item = sub.items?.data?.[0];
-    if (!item) throw new Error("Subscription has no items to update");
+    const customerId = await SubscriptionService.ensureCustomer(user);
 
-    const updated = await this.stripe.subscriptions.update(subscriptionId, {
-      items: [
+    // Create a Checkout Session for the update
+    const session = await this.stripe.checkout.sessions.create({
+      customer: customerId,
+      mode: "subscription",
+      line_items: [
         {
-          id: item.id,
           price: priceId,
+          quantity: 1,
         },
       ],
-      proration_behavior: "create_prorations",
+      success_url: `${
+        process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+      }/subscription?success=true&updated=true`,
+      cancel_url: `${
+        process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+      }/subscription?canceled=true`,
+      metadata: {
+        userId: user.id,
+        previousSubscriptionId: subscriptionId,
+      },
+      subscription_data: {
+        metadata: {
+          replacesSubscription: subscriptionId,
+        },
+      },
     });
 
-    return updated;
+    // Cancel the old subscription at period end
+    await this.stripe.subscriptions.update(subscriptionId, {
+      cancel_at_period_end: true,
+    });
+
+    return {
+      checkoutUrl: session.url,
+      sessionId: session.id,
+      previousSubscriptionId: subscriptionId,
+    };
   }
 
   // Cancel subscription (either immediately or at period end)

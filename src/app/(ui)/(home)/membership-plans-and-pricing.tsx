@@ -1,4 +1,4 @@
-import SubscriptionCard from "@/components/common/subscription-card";
+import SubscriptionManagement from "@/components/subscription/subscription-management";
 import Image from "next/image";
 import { Fragment } from "react/jsx-runtime";
 
@@ -97,16 +97,7 @@ export default function MembershipPlansAndPricing() {
         </header>
 
         <div className="section px-4 pt-20 pb-20 text-lg [&_td]:p-4 [&_table]:mx-auto">
-          <div className="grid md:grid-cols-3 gap-8 justify-center">
-            {plans.map((plan) => (
-              <SubscriptionCard
-                key={plan.title}
-                title={plan.title}
-                description={plan.description}
-                highlight={!!plan.highlight}
-              />
-            ))}
-          </div>
+          <SubscriptionManagement />
           <div className="mt-8 text-center">
             NOTE: Each membership plan is billed upfront, and will auto-renew,
             unless it is cancelled.

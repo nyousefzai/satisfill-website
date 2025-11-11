@@ -9,6 +9,7 @@ export default function SubscriptionCard({
   joinText = "Join Now",
   highlight = true,
   loading = false,
+  priceId,
 }: {
   title: string;
   description: ReactNode;
@@ -16,24 +17,25 @@ export default function SubscriptionCard({
   joinText?: string;
   highlight?: boolean;
   loading?: boolean;
+  priceId?: string;
 }) {
   return (
     <div
       className={cn(
-        "border-4 rounded-2xl w-full overflow-hidden",
+        "border-4 rounded-2xl w-full overflow-hidden group hover:border-sky-700 border-gray-400",
         highlight ? "border-sky-700" : "border-gray-400"
       )}
     >
       <div
         className={cn(
-          "px-4 py-4 text-3xl font-semibold text-white w-full",
+          "px-4 py-4 text-3xl font-semibold text-white w-full group-hover:bg-sky-700",
           highlight ? "bg-sky-700" : "bg-gray-400"
         )}
       >
         {title}
       </div>
       <div className="min-h-[250px] bg-white text-black flex flex-col pb-6">
-        <div className="p-6 text-center text-3xl font-bold">{description}</div>
+        <div className="p-6 text-center text-2xl font-bold">{description}</div>
 
         <div className="mt-auto px-4">
           <button

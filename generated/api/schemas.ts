@@ -3,10 +3,6 @@
  *
  * @version 1.0.0
  */
-
-// Missing type definition for Stripe price recurring interval
-export type UndefinedPriceRecurringInterval = "day" | "week" | "month" | "year";
-
 export type CancelSubscription200ResponseBody = {
   id: string;
   object?: string;
@@ -85,7 +81,9 @@ export type ContactRequestBody = {
 };
 
 export type CreateSubscription201ResponseBody = {
-  subscription: {
+  checkoutUrl?: string | null;
+  sessionId?: string | null;
+  subscription?: {
     id: string;
     object?: string;
     status?: string;
@@ -144,7 +142,7 @@ export type ErrorMessage = {
   message?: string;
 };
 
-export type GetCurrentSubscription473ResponseBody = {
+export type GetCurrentSubscription200ResponseBody = {
   subscription: {
     id: string;
     object?: string;
@@ -190,8 +188,10 @@ export type GetCurrentSubscription473ResponseBody = {
         client_secret?: string | null;
       } | null;
     } | null;
-  } | null;
+  };
 };
+
+export type GetCurrentSubscription401ResponseBody = string;
 
 export type GetCurrentUser200ResponseBody = {
   user: {
@@ -215,7 +215,22 @@ export type GetCurrentUser200ResponseBody = {
   } | null;
 };
 
-export type ListPlans200ResponseBody = any[];
+export type ListPlans200ResponseBody = {
+  id: string;
+  object?: string;
+  unit_amount?: number | null;
+  currency?: string;
+  nickname?: string | null;
+  product?:
+    | string
+    | {
+        [key: string]: any;
+      };
+  recurring?: {
+    interval?: UndefinedRecurringInterval;
+    interval_count?: number;
+  } | null;
+}[];
 
 export type Logout200ResponseBody = {
   message: string;
@@ -288,51 +303,67 @@ export type RequestMagicLinkRequestBody = {
   email: string;
 };
 
+export type SubscribeNewsletter200ResponseBody = {
+  message: string;
+};
+
+export type SubscribeNewsletterRequestBody = {
+  /**
+   * @format email
+   */
+  email: string;
+};
+
 export type UpdateSubscription200ResponseBody = {
-  id: string;
-  object?: string;
-  status?: string;
-  cancel_at_period_end?: boolean;
-  current_period_start?: number;
-  current_period_end?: number;
-  items?: {
-    object?: string;
-    data?: {
-      id?: string;
-      price?: {
-        id: string;
-        object?: string;
-        unit_amount?: number | null;
-        currency?: string;
-        nickname?: string | null;
-        product?:
-          | string
-          | {
-              [key: string]: any;
-            };
-        recurring?: {
-          interval?: UndefinedPriceRecurringInterval;
-          interval_count?: number;
-        } | null;
-      };
-      quantity?: number;
-    }[];
-  };
-  latest_invoice?: {
+  checkoutUrl?: string | null;
+  sessionId?: string | null;
+  previousSubscriptionId?: string | null;
+  subscription?: {
     id: string;
     object?: string;
-    amount_due?: number;
-    currency?: string;
     status?: string;
-    payment_intent?: {
+    cancel_at_period_end?: boolean;
+    current_period_start?: number;
+    current_period_end?: number;
+    items?: {
+      object?: string;
+      data?: {
+        id?: string;
+        price?: {
+          id: string;
+          object?: string;
+          unit_amount?: number | null;
+          currency?: string;
+          nickname?: string | null;
+          product?:
+            | string
+            | {
+                [key: string]: any;
+              };
+          recurring?: {
+            interval?: UndefinedPriceRecurringInterval;
+            interval_count?: number;
+          } | null;
+        };
+        quantity?: number;
+      }[];
+    };
+    latest_invoice?: {
       id: string;
       object?: string;
-      amount?: number;
+      amount_due?: number;
       currency?: string;
       status?: string;
-      client_secret?: string | null;
+      payment_intent?: {
+        id: string;
+        object?: string;
+        amount?: number;
+        currency?: string;
+        status?: string;
+        client_secret?: string | null;
+      } | null;
     } | null;
-  } | null;
+  };
 };
 
 export type UpdateSubscription401ResponseBody = string;

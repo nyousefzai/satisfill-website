@@ -1,6 +1,16 @@
 "use client";
 
 import { useRequestMagicLink } from "@/api-query";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useState } from "react";
 
 interface LoginModalProps {
@@ -48,73 +58,47 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
     onClose();
   };
 
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold text-gray-900">Sign In</h2>
-          <button
-            onClick={handleClose}
-            className="text-gray-400 hover:text-gray-600"
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-        </div>
+    <Dialog open={isOpen} onOpenChange={handleClose}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>Sign In Required</DialogTitle>
+          <DialogDescription>
+            We&apos;ll send you a magic link to sign in without a password.
+          </DialogDescription>
+        </DialogHeader>
 
         {status === "success" ? (
-          <div className="text-center py-4">
-            <div className="text-green-600 text-4xl mb-2">✓</div>
-            <p className="text-green-600 mb-4">{message}</p>
-            <button
-              onClick={handleClose}
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-            >
+          <div className="text-center py-6">
+            <div className="text-green-600 text-4xl mb-3">✓</div>
+            <p className="text-green-600 mb-6">{message}</p>
+            <Button onClick={handleClose} className="w-full">
               Close
-            </button>
+            </Button>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
-                Email Address
-              </label>
-              <input
+            <div className="space-y-2">
+              <Label htmlFor="email">Email Address</Label>
+              <Input
                 type="email"
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 required
                 disabled={status === "loading"}
               />
             </div>
 
             {message && status === "error" && (
-              <div className="text-red-600 text-sm">{message}</div>
+              <div className="text-destructive text-sm">{message}</div>
             )}
 
-            <button
+            <Button
               type="submit"
               disabled={status === "loading" || !email.trim()}
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full"
             >
               {status === "loading" ? (
                 <div className="flex items-center justify-center">
@@ -124,14 +108,10 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
               ) : (
                 "Send Magic Link"
               )}
-            </button>
-
-            <p className="text-xs text-gray-500 text-center">
-              We&apos;ll send you a magic link to sign in without a password.
-            </p>
+            </Button>
           </form>
         )}
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }

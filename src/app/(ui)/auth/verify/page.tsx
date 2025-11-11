@@ -38,7 +38,7 @@ export default function VerifyMagicLink() {
         setStatus("success");
         setMessage("Successfully logged in! Redirecting...");
         setTimeout(() => {
-          router.push("/");
+          router.push("/#plans-pricing");
         }, 2000);
       } catch {
         setStatus("error");

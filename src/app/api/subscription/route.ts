@@ -8,15 +8,19 @@ export const { GET, POST, PATCH, PUT, DELETE } = route({
   getCurrentSubscription: routeOperation({ method: "GET" })
     .outputs([
       {
-        status: 200 | 401,
+        status: 200,
         contentType: "application/json",
-        body: z.object({ subscription: SubscriptionSchema.nullable() }),
+        body: z.object({ subscription: SubscriptionSchema }),
+      },
+      {
+        status: 401,
+        contentType: "application/json",
+        body: z.string(),
       },
     ])
     .handler(async () => {
       const user = await AuthService.getCurrentUser();
-      if (!user)
-        return TypedNextResponse.json({ subscription: null }, { status: 401 });
+      if (!user) return TypedNextResponse.json("Unauthorized", { status: 401 });
 
       const sub = (await SubscriptionService.getCurrentSubscription(
         user
@@ -37,7 +41,9 @@ export const { GET, POST, PATCH, PUT, DELETE } = route({
         status: 201,
         contentType: "application/json",
         body: z.object({
-          subscription: SubscriptionSchema,
+          checkoutUrl: z.string().nullable().optional(),
+          sessionId: z.string().nullable().optional(),
+          subscription: SubscriptionSchema.optional(),
           clientSecret: z.string().nullable().optional(),
         }),
       },
@@ -48,16 +54,12 @@ export const { GET, POST, PATCH, PUT, DELETE } = route({
       const user = await AuthService.getCurrentUser();
       if (!user) return TypedNextResponse.json("Unauthorized", { status: 401 });
 
-      const subscription = await SubscriptionService.createSubscription(
+      const result = await SubscriptionService.createSubscription(
         user,
         priceId
       );
-      const clientSecret = (subscription.latest_invoice as any)?.payment_intent
-        ?.client_secret;
-      return TypedNextResponse.json(
-        { subscription: subscription as any, clientSecret },
-        { status: 201 }
-      );
+
+      return TypedNextResponse.json(result as any, { status: 201 });
     }),
 
   updateSubscription: routeOperation({ method: "PATCH" })
@@ -69,7 +71,12 @@ export const { GET, POST, PATCH, PUT, DELETE } = route({
       {
         status: 200,
         contentType: "application/json",
-        body: SubscriptionSchema,
+        body: z.object({
+          checkoutUrl: z.string().nullable().optional(),
+          sessionId: z.string().nullable().optional(),
+          previousSubscriptionId: z.string().nullable().optional(),
+          subscription: SubscriptionSchema.optional(),
+        }),
       },
       { status: 401, contentType: "application/json", body: z.string() },
     ])
@@ -78,12 +85,13 @@ export const { GET, POST, PATCH, PUT, DELETE } = route({
       const user = await AuthService.getCurrentUser();
       if (!user) return TypedNextResponse.json("Unauthorized", { status: 401 });
 
-      const updated = (await SubscriptionService.updateSubscription(
+      const result = await SubscriptionService.updateSubscription(
         user,
         subscriptionId,
         priceId
-      )) as any;
-      return TypedNextResponse.json(updated, { status: 200 });
+      );
+
+      return TypedNextResponse.json(result as any, { status: 200 });
     }),
 
   replaceSubscription: routeOperation({ method: "PUT" })

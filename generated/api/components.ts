@@ -314,10 +314,54 @@ export const useContact = (
   });
 };
 
+export type SubscribeNewsletterError = Fetcher.ErrorWrapper<{
+  status: 500;
+  payload: Schemas.ErrorMessage;
+}>;
+
+export type SubscribeNewsletterVariables = {
+  body: Schemas.SubscribeNewsletterRequestBody;
+} & Context["fetcherOptions"];
+
+export const fetchSubscribeNewsletter = (
+  variables: SubscribeNewsletterVariables,
+  signal?: AbortSignal,
+) =>
+  fetch<
+    Schemas.SubscribeNewsletter200ResponseBody,
+    SubscribeNewsletterError,
+    Schemas.SubscribeNewsletterRequestBody,
+    {},
+    {},
+    {}
+  >({ url: "/api/newsletter", method: "post", ...variables, signal });
+
+export const useSubscribeNewsletter = (
+  options?: Omit<
+    reactQuery.UseMutationOptions<
+      Schemas.SubscribeNewsletter200ResponseBody,
+      SubscribeNewsletterError,
+      SubscribeNewsletterVariables
+    >,
+    "mutationFn"
+  >,
+) => {
+  const { fetcherOptions } = useContext();
+  return reactQuery.useMutation<
+    Schemas.SubscribeNewsletter200ResponseBody,
+    SubscribeNewsletterError,
+    SubscribeNewsletterVariables
+  >({
+    mutationFn: (variables: SubscribeNewsletterVariables) =>
+      fetchSubscribeNewsletter(deepMerge(fetcherOptions, variables)),
+    ...options,
+  });
+};
+
 export type GetCurrentSubscriptionError = Fetcher.ErrorWrapper<
   | {
-      status: 473;
-      payload: Schemas.GetCurrentSubscription473ResponseBody;
+      status: 401;
+      payload: Schemas.GetCurrentSubscription401ResponseBody;
     }
   | {
       status: 500;
@@ -331,18 +375,22 @@ export const fetchGetCurrentSubscription = (
   variables: GetCurrentSubscriptionVariables,
   signal?: AbortSignal,
 ) =>
-  fetch<undefined, GetCurrentSubscriptionError, undefined, {}, {}, {}>({
-    url: "/api/subscription",
-    method: "get",
-    ...variables,
-    signal,
-  });
+  fetch<
+    Schemas.GetCurrentSubscription200ResponseBody,
+    GetCurrentSubscriptionError,
+    undefined,
+    {},
+    {},
+    {}
+  >({ url: "/api/subscription", method: "get", ...variables, signal });
 
 export function getCurrentSubscriptionQuery(
   variables: GetCurrentSubscriptionVariables,
 ): {
   queryKey: reactQuery.QueryKey;
-  queryFn: (options: QueryFnOptions) => Promise<undefined>;
+  queryFn: (
+    options: QueryFnOptions,
+  ) => Promise<Schemas.GetCurrentSubscription200ResponseBody>;
 };
 
 export function getCurrentSubscriptionQuery(
@@ -350,7 +398,9 @@ export function getCurrentSubscriptionQuery(
 ): {
   queryKey: reactQuery.QueryKey;
   queryFn:
-    | ((options: QueryFnOptions) => Promise<undefined>)
+    | ((
+        options: QueryFnOptions,
+      ) => Promise<Schemas.GetCurrentSubscription200ResponseBody>)
     | reactQuery.SkipToken;
 };
 
@@ -371,16 +421,22 @@ export function getCurrentSubscriptionQuery(
   };
 }
 
-export const useSuspenseGetCurrentSubscription = <TData = undefined,>(
+export const useSuspenseGetCurrentSubscription = <
+  TData = Schemas.GetCurrentSubscription200ResponseBody,
+>(
   variables: GetCurrentSubscriptionVariables,
   options?: Omit<
-    reactQuery.UseQueryOptions<undefined, GetCurrentSubscriptionError, TData>,
+    reactQuery.UseQueryOptions<
+      Schemas.GetCurrentSubscription200ResponseBody,
+      GetCurrentSubscriptionError,
+      TData
+    >,
     "queryKey" | "queryFn" | "initialData"
   >,
 ) => {
   const { queryOptions, fetcherOptions } = useContext(options);
   return reactQuery.useSuspenseQuery<
-    undefined,
+    Schemas.GetCurrentSubscription200ResponseBody,
     GetCurrentSubscriptionError,
     TData
   >({
@@ -390,15 +446,25 @@ export const useSuspenseGetCurrentSubscription = <TData = undefined,>(
   });
 };
 
-export const useGetCurrentSubscription = <TData = undefined,>(
+export const useGetCurrentSubscription = <
+  TData = Schemas.GetCurrentSubscription200ResponseBody,
+>(
   variables: GetCurrentSubscriptionVariables | reactQuery.SkipToken,
   options?: Omit<
-    reactQuery.UseQueryOptions<undefined, GetCurrentSubscriptionError, TData>,
+    reactQuery.UseQueryOptions<
+      Schemas.GetCurrentSubscription200ResponseBody,
+      GetCurrentSubscriptionError,
+      TData
+    >,
     "queryKey" | "queryFn" | "initialData"
   >,
 ) => {
   const { queryOptions, fetcherOptions } = useContext(options);
-  return reactQuery.useQuery<undefined, GetCurrentSubscriptionError, TData>({
+  return reactQuery.useQuery<
+    Schemas.GetCurrentSubscription200ResponseBody,
+    GetCurrentSubscriptionError,
+    TData
+  >({
     ...getCurrentSubscriptionQuery(
       variables === reactQuery.skipToken
         ? variables
