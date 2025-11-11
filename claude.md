@@ -6,8 +6,8 @@ Satisfill is a modern web application focused on diet, nutrition, and health man
 ## Tech Stack
 
 ### Core Framework
-- **Next.js 16.0.1** - React framework with App Router
-- **React 19.2.0** - UI library
+- **Next.js 15.0.3** - React framework with App Router (stable version)
+- **React 18.3.1** - UI library (stable version)
 - **TypeScript 5** - Type-safe development
 - **Tailwind CSS 4** - Utility-first styling
 
@@ -198,9 +198,21 @@ yarn build
 
 ## Deployment
 
-The application is configured for deployment on AWS Amplify (see `amplify.yml`). Key deployment considerations:
+The application is configured for deployment on AWS Amplify (see `amplify.yml`).
 
-- Set all required environment variables
+### AWS Amplify Configuration
+- **Node.js Version**: 18.x (configured in amplify.yml preBuild phase)
+- **Build Command**: `yarn build`
+- **Output Directory**: `.next`
+
+### Important Notes for AWS Amplify
+- Using **Next.js 15.0.3** and **React 18.3.1** (stable versions)
+- Next.js 16 and React 19 are not yet fully compatible with AWS Amplify's build environment
+- Node.js 18 is the recommended version for Next.js 15
+- The project includes a root layout at `src/app/layout.tsx` (required for App Router)
+
+### Key Deployment Considerations
+- Set all required environment variables in Amplify console
 - Run database migrations with `yarn db:deploy`
 - Ensure PostgreSQL database is accessible
 - Configure Stripe webhooks for production
