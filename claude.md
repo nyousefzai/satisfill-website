@@ -228,3 +228,9 @@ The application is configured for deployment on AWS Amplify (see `amplify.yml`).
 ## Build Status
 
 Build is currently passing with all static and dynamic routes working correctly.
+
+---
+
+## Development Tools
+
+This project was developed with assistance from [Claude Code](https://claude.com/claude-code), Anthropic's official CLI for Claude.
