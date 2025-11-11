@@ -15,6 +15,12 @@ export default function VerifyMagicLink() {
 
   useEffect(() => {
     const verifyToken = async () => {
+      if (!searchParams) {
+        setStatus("error");
+        setMessage("Invalid verification link");
+        return;
+      }
+
       const token = searchParams.get("token");
       const email = searchParams.get("email");
 
