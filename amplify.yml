@@ -3,7 +3,7 @@ backend:
   phases:
     build:
       commands:
-        - '# No backend build needed'
+        - "# No backend build needed"
 frontend:
   phases:
     preBuild:
@@ -25,7 +25,7 @@ frontend:
   artifacts:
     baseDirectory: .next
     files:
-      - '**/*'
+      - "**/*"
   cache:
     paths:
       - node_modules/**/*
