@@ -3,6 +3,7 @@
  *
  * @version 1.0.0
  */
+// @ts-nocheck
 export type CancelSubscription200ResponseBody = {
   id: string;
   object?: string;
