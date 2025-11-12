@@ -3,12 +3,21 @@ import { z } from "zod";
 // Auth schemas
 export const magicLinkRequestSchema = z.object({
   email: z
-    .string()
+    .string({
+      required_error: "Email is required",
+      invalid_type_error: "Email must be a string",
+    })
+    .trim()
     .min(1, "Email is required")
+    .max(255, "Email is too long")
     .regex(
       /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
       "Please enter a valid email address"
-    ),
+    )
+    .refine((val) => val !== "null" && val !== "undefined", {
+      message: "Please enter a valid email address",
+    })
+    .transform((val) => val.toLowerCase()),
 });
 
 export const magicLinkVerifySchema = z.object({
