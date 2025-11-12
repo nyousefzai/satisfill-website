@@ -42,7 +42,12 @@ export default function ContactUs() {
   const onSubmit = async (data: ContactFormData) => {
     mutate(
       {
-        body: data,
+        body: {
+          name: data.name,
+          email: data.email,
+          subject: data.subject ?? "",
+          message: data.message ?? "",
+        },
       },
       {
         onSuccess() {
