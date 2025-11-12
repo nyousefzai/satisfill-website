@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   compiler: {
     styledComponents: true,
   },
+  experimental: {
+    optimizePackageImports: ["@prisma/client"],
+  },
 };
 
 export default nextConfig;

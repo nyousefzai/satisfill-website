@@ -62,8 +62,8 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Sign In Required</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-2xl">Sign In Required</DialogTitle>
+          <DialogDescription className="text-lg">
             We&apos;ll send you a magic link to sign in without a password.
           </DialogDescription>
         </DialogHeader>
@@ -77,7 +77,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
             </Button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4 mt-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email Address</Label>
               <Input
@@ -98,7 +98,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
             <Button
               type="submit"
               disabled={status === "loading" || !email.trim()}
-              className="w-full"
+              className="w-full mt-4"
             >
               {status === "loading" ? (
                 <div className="flex items-center justify-center">

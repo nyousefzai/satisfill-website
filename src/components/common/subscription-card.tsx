@@ -40,7 +40,7 @@ export default function SubscriptionCard({
         <div className="mt-auto px-4">
           <button
             onClick={() => onJoinNow?.()}
-            className="bg-yellow-200 border w-full border-black py-2 px-4 rounded-full text-2xl font-bold"
+            className="bg-yellow-200 hover:bg-yellow-400 cursor-pointer border w-full border-black py-2 px-4 rounded-full text-2xl font-bold"
           >
             {loading ? <Spinner /> : ""} {joinText}
           </button>
