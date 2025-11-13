@@ -68,7 +68,7 @@ export default function ContactUs() {
 
   return (
     <div id="contact">
-      <header className="bg-sky-200 px-4 py-1">
+      <header className="bg-sky-200 px-4 py-4">
         <div className="section flex items-center gap-4">
           <div>
             <Image
@@ -84,7 +84,7 @@ export default function ContactUs() {
         </div>
       </header>
 
-      <div className="text-lg [&_label]:text-lg  [&_label]:font-bold py-20 px-4 section">
+      <div className="text-lg [&_label]:text-lg  [&_label]:font-bold py-20 px-4 max-w-[740px] mx-auto">
         <p className="text-2xl text-sky-700 mb-8">
           <b>Message Center</b>
         </p>
@@ -103,7 +103,11 @@ export default function ContactUs() {
                   <div className="flex-1">
                     <FormControl>
                       <Input
-                        className={form.formState.errors.name ? INPUT_ERROR_STYLES : INPUT_STYLES}
+                        className={
+                          form.formState.errors.name
+                            ? INPUT_ERROR_STYLES
+                            : INPUT_STYLES
+                        }
                         {...field}
                       />
                     </FormControl>
@@ -123,7 +127,11 @@ export default function ContactUs() {
                     <FormControl>
                       <Input
                         type="email"
-                        className={form.formState.errors.email ? INPUT_ERROR_STYLES : INPUT_STYLES}
+                        className={
+                          form.formState.errors.email
+                            ? INPUT_ERROR_STYLES
+                            : INPUT_STYLES
+                        }
                         {...field}
                       />
                     </FormControl>
@@ -142,7 +150,11 @@ export default function ContactUs() {
                   <div className="flex-1">
                     <FormControl>
                       <Input
-                        className={form.formState.errors.subject ? INPUT_ERROR_STYLES : INPUT_STYLES}
+                        className={
+                          form.formState.errors.subject
+                            ? INPUT_ERROR_STYLES
+                            : INPUT_STYLES
+                        }
                         {...field}
                       />
                     </FormControl>
@@ -161,7 +173,11 @@ export default function ContactUs() {
                   <div className="flex-1">
                     <FormControl>
                       <Textarea
-                        className={`${form.formState.errors.message ? INPUT_ERROR_STYLES : INPUT_STYLES} min-h-32`}
+                        className={`${
+                          form.formState.errors.message
+                            ? INPUT_ERROR_STYLES
+                            : INPUT_STYLES
+                        } min-h-32`}
                         {...field}
                       />
                     </FormControl>

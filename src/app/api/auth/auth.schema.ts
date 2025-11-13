@@ -10,14 +10,12 @@ export const magicLinkRequestSchema = z.object({
     .trim()
     .min(1, "Email is required")
     .max(255, "Email is too long")
-    .regex(
-      /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-      "Please enter a valid email address"
-    )
+    .regex(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Please enter a valid email address")
     .refine((val) => val !== "null" && val !== "undefined", {
       message: "Please enter a valid email address",
     })
     .transform((val) => val.toLowerCase()),
+  searchParams: z.any().optional(),
 });
 
 export const magicLinkVerifySchema = z.object({

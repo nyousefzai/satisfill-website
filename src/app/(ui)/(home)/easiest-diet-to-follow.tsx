@@ -9,7 +9,7 @@ export default function EasiestDietToFollow() {
         }}
         className="bg-cover bg-center w-full"
       >
-        <header className="bg-white/50 px-4 py-1">
+        <header className="bg-white/80 px-4 py-4">
           <div className="section flex items-center gap-4">
             <div>
               <Image
@@ -28,7 +28,7 @@ export default function EasiestDietToFollow() {
         </header>
 
         <div className="text-center italic py-20">
-          <div className="text-4xl font-semibold">
+          <div className="text-4xl md:text-5xl font-semibold">
             Our App makes dieting -<br />
             Simple, Easy & Quick
           </div>
@@ -63,7 +63,7 @@ export default function EasiestDietToFollow() {
               Simple, Easy & Quick
             </b>
           </p>
-          <p className="mt-10 space-y-4">
+          <p className="mt-10 space-y-6 mx-auto max-w-xl leading-6">
             <DotLeader
               title="All the cooking can be done in a"
               value="MICROWAVE OVEN."
@@ -91,7 +91,7 @@ export default function EasiestDietToFollow() {
           </p>
         </div>
 
-        <div className="my-20">
+        <div className="my-20 max-w-[770px] mx-auto leading-5.5">
           <p className="text-center">
             <b>
               A fully integrated diet plan that does
@@ -157,8 +157,10 @@ export default function EasiestDietToFollow() {
           recipe is <b>simple, easy, and quick.</b>
           <br />
           <br />
-          <b>Meal Plans:</b> Our app provides a complete 28-day meal plan, at
-          the following calorie levels —
+          <b>Meal Plans:</b>
+          Our app provides a complete 28-day meal plan, at the following calorie
+          levels — <br />
+          <br />
           <p className="pl-10 md:pl-20">
             1200 Calories
             <br />

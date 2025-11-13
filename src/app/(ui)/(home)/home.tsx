@@ -3,22 +3,13 @@ import SubscriptionManagement from "@/components/subscription/subscription-manag
 import Image from "next/image";
 import Link from "next/link";
 import VideoPlayer from "../../../components/common/video-player";
+import Header from "./header";
 
 const footerLinks = [
   { label: "Energy Balance", href: "#energy-balance" },
   { label: "BMI ", href: "#bmi" },
   { label: "Exercise", href: "#exercise" },
   { label: "Best Diets E-Book", href: "#books" },
-];
-
-const links = [
-  { label: "Home", href: "#" },
-  { label: "Appetite Fulfillment", href: "#appetite" },
-  { label: "Easiest Diet To Follow", href: "#easiest-diet-to-follow" },
-  { label: "Nutrition & Health", href: "#nutrition-and-health" },
-  { label: "Plans & Pricing", href: "#plans-pricing" },
-  { label: "Our Mission", href: "#our-mission" },
-  { label: "Contact", href: "#contact" },
 ];
 
 export default function Home() {
@@ -28,45 +19,17 @@ export default function Home() {
         style={{
           backgroundImage: 'url("/sky.jpg")',
         }}
-        className="bg-cover bg-center w-full"
+        className="bg-cover w-full"
       >
-        <header className="bg-white/50  p-4">
-          <div className="section flex items-center">
-            <div>
-              <Image
-                src="/satisfill-diet.png"
-                alt="Satisfill Logo"
-                width={150}
-                height={50}
-                className="max-h-[100px] w-auto"
-              />
-            </div>
+        <Header />
 
-            <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(0,100px))] w-full items-end">
-              {links.map((l) => (
-                <Link
-                  href={l.href}
-                  key={l.href}
-                  className="font-semibold hover:underline text-center wrap-break-word"
-                >
-                  {l.label}
-                </Link>
-              ))}
-            </div>
-
-            {/* <div className="ml-4">
-              <AuthStatus />
-            </div> */}
-          </div>
-        </header>
-
-        <div className="relative mt-10">
+        <div className="relative mt-20">
           <Image
             src="/logo.svg"
             alt="Logo"
             width={200}
             height={50}
-            className="max-h-[120px] w-full relative z-10"
+            className="max-h-[170px] w-full relative z-10"
             style={{
               width: "100%",
               height: "100%",
@@ -75,18 +38,18 @@ export default function Home() {
           />
         </div>
 
-        <div className="mt-5 mb-20 relative max-w-xl w-full md:h-[400px] text-center mx-auto">
+        <div className="mt-10 mb-20 relative max-w-xl w-full md:h-[400px] text-center mx-auto">
           <Image
             src="/triangles.png"
             alt="Decorative Triangles"
             width={600}
             height={400}
-            className="md:absolute top-0 bottom-0 right-0 left-0 mx-auto"
+            className="md:absolute h-full w-full  top-0 bottom-0 right-0 left-0 mx-auto"
           />
 
           <div
-            className="absolute left-1/2 top-20 -translate-x-1/2 w-full italic text-2xl sm:text-4xl md:text-[55px] text-[#4272b4] font-bold leading-[1.2]"
-            style={{ textShadow: "2px 2px 4px rgba(255, 255, 255, 0.8)" }}
+            className="absolute left-1/2 top-20 -translate-x-1/2 w-full italic text-2xl sm:text-4xl md:text-[65px] text-[#4272b4] font-bold leading-[1.2]"
+            style={{ textShadow: "2px 2px 4px white" }}
           >
             The First
             <br />
@@ -94,14 +57,14 @@ export default function Home() {
           </div>
 
           <div
-            className="absolute bottom-5 left-1/2 -translate-x-1/2 w-full italic text-2xl sm:text-4xl md:text-[55px] text-[#4272b4] font-bold leading-[1.2]"
+            className="absolute bottom-5 left-1/2 -translate-x-1/2 w-full italic text-2xl sm:text-4xl md:text-[65px] text-[#4272b4] font-bold leading-[1.2]"
             style={{ textShadow: "2px 2px 4px rgba(255, 255, 255, 0.8)" }}
           >
             Diet & App
           </div>
         </div>
 
-        <footer className="bg-white/50 p-4">
+        <footer className="bg-white/50 p-4 mt-50">
           <div className="section grid gap-4 grid-cols-[repeat(auto-fit,minmax(0,80px))] w-full items-end">
             {footerLinks.map((l) => (
               <Link
@@ -164,20 +127,20 @@ export default function Home() {
           </div>
 
           <div>
-            <div className="max-w-md mx-auto flex flex-col justify-center items-center px-6 py-24 text-center">
-              <p className="text-4xl font-semibold text-center">
+            <div className="mx-auto flex flex-col justify-center items-center px-6 py-24 text-center">
+              <p className="text-4xl md:text-5xl font-semibold text-center">
                 Grand Opening Offer!
               </p>
 
-              <div className="mt-10 w-full">
+              <div className="mt-10 w-full max-w-sm">
                 <SubscriptionManagement onlyShow4MonthPlan={true} />
               </div>
 
-              <p className="text-4xl mt-20 font-semibold text-center">
+              <p className="text-4xl md:text-5xl  mt-20 font-semibold text-center">
                 Not Ready to Join?
               </p>
 
-              <div className="mt-10 w-full">
+              <div className="mt-10 w-full max-w-sm">
                 <NewsLetterCard />
               </div>
             </div>

@@ -272,7 +272,7 @@ export const useVerifyMagicLink = (
 
 export type ContactError = Fetcher.ErrorWrapper<{
   status: 500;
-  payload: Schemas.ErrorMessage;
+  payload: Schemas.Contact500ResponseBody;
 }>;
 
 export type ContactVariables = {
@@ -365,7 +365,7 @@ export type GetCurrentSubscriptionError = Fetcher.ErrorWrapper<
     }
   | {
       status: 500;
-      payload: Schemas.ErrorMessage;
+      payload: Schemas.GetCurrentSubscription500ResponseBody;
     }
 >;
 
@@ -482,7 +482,7 @@ export type CreateSubscriptionError = Fetcher.ErrorWrapper<
     }
   | {
       status: 500;
-      payload: Schemas.ErrorMessage;
+      payload: Schemas.CreateSubscription500ResponseBody;
     }
 >;
 
@@ -532,7 +532,7 @@ export type UpdateSubscriptionError = Fetcher.ErrorWrapper<
     }
   | {
       status: 500;
-      payload: Schemas.ErrorMessage;
+      payload: Schemas.UpdateSubscription500ResponseBody;
     }
 >;
 
@@ -626,7 +626,7 @@ export type CancelSubscriptionError = Fetcher.ErrorWrapper<
     }
   | {
       status: 500;
-      payload: Schemas.ErrorMessage;
+      payload: Schemas.CancelSubscription500ResponseBody;
     }
 >;
 
@@ -671,7 +671,7 @@ export const useCancelSubscription = (
 
 export type ListPlansError = Fetcher.ErrorWrapper<{
   status: 500;
-  payload: Schemas.ErrorMessage;
+  payload: Schemas.ListPlans500ResponseBody;
 }>;
 
 export type ListPlansVariables = Context["fetcherOptions"];

@@ -49,36 +49,10 @@ const exerciseData = [
 ];
 
 export default function MembershipPlansAndPricing() {
-  const plans = [
-    {
-      title: "1 Month Plan",
-      description: "$45.00",
-    },
-    {
-      title: "4 Month Plan",
-      description: (
-        <>
-          $100.00 <br />
-          $25/month x 4
-        </>
-      ),
-      highlight: true,
-    },
-    {
-      title: "12 Month Plan",
-      description: (
-        <>
-          $180.00 <br />
-          $15/month x 12
-        </>
-      ),
-    },
-  ];
-
   return (
     <div id="plans-pricing">
       <div>
-        <header className="px-4 py-1 bg-sky-200">
+        <header className="px-4 py-4 bg-sky-200">
           <div className="section flex items-center gap-4">
             <div>
               <Image
@@ -96,15 +70,15 @@ export default function MembershipPlansAndPricing() {
           </div>
         </header>
 
-        <div className="section px-4 pt-20 pb-20 text-lg [&_td]:p-4 [&_table]:mx-auto">
+        <div className="max-w-[770px] mx-auto leading-5.5 px-4 pt-20 pb-20 text-lg [&_td]:p-4 [&_table]:mx-auto">
           <SubscriptionManagement />
-          <div className="mt-8 text-center">
+          <div className="mt-10 mb-30 text-center">
             NOTE: Each membership plan is billed upfront, and will auto-renew,
             unless it is cancelled.
           </div>
 
           <div className="my-20">
-            <h4 className="text-2xl">
+            <h4 className="text-xl">
               <b>
                 The Satisfill Diet Plan is not only simple and easy, it is also
                 very Budget Friendly and Affordable —
@@ -112,10 +86,16 @@ export default function MembershipPlansAndPricing() {
             </h4>
 
             <table>
-              <tr className="[&>td]:border-b [&>td]:border-gray-300">
+              <tr>
                 <td></td>
-                <td>1200 Calories</td>
-                <td>1800 Calories</td>
+                <td>
+                  1200
+                  <br /> <u>Calories</u>
+                </td>
+                <td>
+                  1800 <br />
+                  <u>Calories</u>
+                </td>
               </tr>
               <tr>
                 <td>
@@ -136,7 +116,7 @@ export default function MembershipPlansAndPricing() {
           </div>
 
           <div className="my-20">
-            <h4 className="text-2xl">
+            <h4 className="text-xl">
               <b>
                 Estimated Cost to Stock Your Refrigerator and Pantry with Food
                 and Non-Food Items to Start the Diet Plan –
@@ -144,10 +124,16 @@ export default function MembershipPlansAndPricing() {
             </h4>
 
             <table>
-              <tr className="[&>td]:border-b [&>td]:border-gray-300">
+              <tr>
                 <td></td>
-                <td>1200 Calories</td>
-                <td>1800 Calories</td>
+                <td>
+                  1200
+                  <br /> <u>Calories</u>
+                </td>
+                <td>
+                  1800 <br />
+                  <u>Calories</u>
+                </td>
               </tr>
               <tr>
                 <td>Supermarket Foods (7 to 90 days)</td>
@@ -194,22 +180,24 @@ export default function MembershipPlansAndPricing() {
             </p>
           </div>
 
-          <div>
-            <h4 className="text-center text-3xl font-semibold text-sky-700">
+          <div className="mt-40">
+            <h4 className="text-center text-3xl md:text-4xl font-semibold text-sky-700">
               Our Mission:
             </h4>
-            <h5 className="text-center text-2xl font-semibold  text-sky-700">
+            <h5 className="text-center text-2xl md:text-4xl font-semibold  text-sky-700">
               Fighting Obesity and Overweight
             </h5>
-            <b className="text-center block mt-4">
+            <b className="md:text-xl block mt-4">
               The current Obesity Epidemic is the #1 health crisis in America
               and in the world today.
             </b>
-            <p className="text-center mt-6 italic max-w-md mx-auto">
+            <p className="text-center md:text-xl mt-6 mb-6 italic max-w-md mx-auto">
               <b>
                 “For the first time in human history, obesity has surpassed
                 starvation as a cause of death.” <br />
-                <span className="text-base">-- The Lancet Medical Journal</span>
+                <span className="text-base md:text-lg">
+                  -- The Lancet Medical Journal
+                </span>
               </b>
 
               <Image
@@ -231,7 +219,7 @@ export default function MembershipPlansAndPricing() {
             <br />
             <br />
             The four leading causes of death in America today are —
-            <div className="pl-8 mt-4 mb-4">
+            <div className="pl-8 md:pl-14 mt-4 mb-4">
               Heart Disease
               <br />
               Cancer
@@ -240,6 +228,7 @@ export default function MembershipPlansAndPricing() {
               <br />
               Diabetes
             </div>
+            <br />
             These four diseases account for 80% of all deaths, a total of over 2
             million deaths each year.
             <br />
@@ -312,9 +301,9 @@ export default function MembershipPlansAndPricing() {
             Jeff Lenn Founder
           </div>
 
-          <div className="mt-10">
-            <div className="max-w-3xl mx-auto">
-              <p className="text-center text-2xl text-sky-700">
+          <div className="mt-40">
+            <div className="max-w-2xl md:text-xl mx-auto">
+              <p className="text-center text-2xl md:text-3xl text-sky-700">
                 <b>The Underlying Cause of the Obesity Epidemic</b>
               </p>
               <br />
@@ -340,7 +329,7 @@ export default function MembershipPlansAndPricing() {
               health crisis in America today.
             </div>
 
-            <div className="flex wrap gap-10 text-center mt-10">
+            <div className="flex wrap gap-10 text-center mt-20">
               <div className="w-full">
                 <p className="italic font-semibold text-xl">Overeating</p>
                 <Image
@@ -369,9 +358,9 @@ export default function MembershipPlansAndPricing() {
             </div>
           </div>
 
-          <div className="my-20" id="energy-balance">
+          <div className="mb-20 mt-40" id="energy-balance">
             <div>
-              <p className="text-center text-2xl text-sky-700">
+              <p className="text-center text-2xl md:text-3xl text-sky-700">
                 <b>The Principle of Energy Balance</b>{" "}
               </p>
               <br />
@@ -504,8 +493,8 @@ export default function MembershipPlansAndPricing() {
             </div>
           </div>
 
-          <div id="bmi">
-            <p className="text-center text-2xl text-sky-700">
+          <div id="bmi" className="mt-20">
+            <p className="text-center text-2xl md:text-3xl text-sky-700">
               <b>Body Mass Index (BMI)</b>{" "}
             </p>
             <br />
@@ -544,9 +533,13 @@ export default function MembershipPlansAndPricing() {
             Standard Weight Categories have been established by dividing the BMI
             numbers into four ranges, as shown below —<br />
             <table>
-              <tr className="[&>td]:border-b [&>td]:border-gray-300">
-                <td>BMI</td>
-                <td>Weight Category</td>
+              <tr>
+                <td>
+                  <u>BMI</u>
+                </td>
+                <td>
+                  <u>Weight Category</u>
+                </td>
               </tr>
               <tr>
                 <td>Below 18.5</td>
@@ -574,7 +567,7 @@ export default function MembershipPlansAndPricing() {
             find your weight at the left, and your height at the top. Then,
             going right from your weight, and going down from your height, find
             your BMI number where the two columns intersect. <br /> <br />
-            <h4 className="text-center text-2xl font-semibold">
+            <h4 className="text-center text-2xl md:text-3xl font-semibold">
               Body Mass Index (BMI)
             </h4>
             <Image
@@ -587,12 +580,13 @@ export default function MembershipPlansAndPricing() {
           </div>
 
           <div className="my-20" id="exercise">
-            <p className="text-center text-2xl text-sky-700">
+            <p className="text-center text-2xl md:text-3xl text-sky-700">
               <b>Exercise</b>{" "}
             </p>
             <br />
-            <b>Introduction</b>
-            <br />
+            <p className="mb-3">
+              <b>Introduction</b>
+            </p>
             The underlying cause of Obesity and Overweight is two-fold —
             <p className="pl-8">
               Overeating
@@ -612,7 +606,7 @@ export default function MembershipPlansAndPricing() {
             to harness both parts of the energy balance equation. Think of it as
             an “energy balance one-two-punch.” To maximize weight control, you
             need to do two things simultaneously —
-            <p className="pl-8 font-semibold">
+            <p className="pl-8 md:pl-14 font-semibold mt-3">
               Diet — Eat fewer calories
               <br />
               Exercise — Burn more calories
@@ -625,8 +619,9 @@ export default function MembershipPlansAndPricing() {
             other, and vice versa.
             <br />
             <br />
-            <b>Aerobic Exercise</b>
-            <br />
+            <p className="mb-3">
+              <b>Aerobic Exercise</b>
+            </p>
             The term aerobic means “with oxygen.” Aerobic Exercise, sometimes
             called Endurance Exercise or Cardiorespiratory Exercise, or just
             Cardio, strengthens and conditions your heart and lungs. It gets
@@ -634,8 +629,9 @@ export default function MembershipPlansAndPricing() {
             muscles of your lower body.
             <br />
             <br />
-            <b>Benefits of Aerobic Exercise</b>
-            <br />
+            <p className="mb-3">
+              <b>Benefits of Aerobic Exercise</b>
+            </p>
             Here are some of the many health benefits derived from Aerobic
             Exercise —
             <ul className="list-disc pl-8">
@@ -658,7 +654,7 @@ export default function MembershipPlansAndPricing() {
           </div>
 
           <div>
-            <p className="text-center text-2xl text-sky-700">
+            <p className="text-2xl text-sky-700">
               <b> Aerobic Exercise and Metabolic Function</b>{" "}
             </p>
             <br />
@@ -696,7 +692,7 @@ export default function MembershipPlansAndPricing() {
               Cancer, are significantly improved through regular aerobic
               exercise —
             </b>
-            <table className="font-semibold [&_td]:p-0!">
+            <table className="font-semibold [&_td]:p-0! mx-auto max-w-xl">
               <tr>
                 <td></td>
                 <td>
@@ -704,9 +700,13 @@ export default function MembershipPlansAndPricing() {
                   Through
                 </td>
               </tr>
-              <tr className="[&>td]:border-b [&>td]:border-gray-300">
-                <td>Metabolic Condition</td>
-                <td>Regular Aerobic Exercise</td>
+              <tr>
+                <td>
+                  <u>Metabolic Condition</u>
+                </td>
+                <td>
+                  <u>Regular Aerobic Exercise</u>
+                </td>
               </tr>
               {exerciseData.map((group) => (
                 <Fragment key={group.title}>

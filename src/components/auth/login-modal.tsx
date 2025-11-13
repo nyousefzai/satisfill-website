@@ -16,9 +16,14 @@ import { useState } from "react";
 interface LoginModalProps {
   isOpen: boolean;
   onClose: () => void;
+  searchParams?: Record<string, string>;
 }
 
-export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
+export default function LoginModal({
+  isOpen,
+  onClose,
+  searchParams,
+}: LoginModalProps) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
@@ -35,6 +40,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
       const data = await requestMagicLink({
         body: {
           email,
+          searchParams: searchParams as void,
         },
       });
 
@@ -50,7 +56,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
         error?.payload?.error ||
         error?.message ||
         error?.error ||
-        (typeof error === 'string' ? error : null) ||
+        (typeof error === "string" ? error : null) ||
         "Failed to send magic link. Please try again.";
 
       setMessage(errorMessage);
@@ -76,8 +82,8 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
 
         {status === "success" ? (
           <div className="text-center py-6">
-            <div className="text-green-600 text-4xl mb-3">✓</div>
-            <p className="text-green-600 mb-6">{message}</p>
+            <div className="text-amber-500 text-6xl mb-3">✓</div>
+            <p className="mb-6 text-2xl">{message}</p>
             <Button onClick={handleClose} className="w-full">
               Close
             </Button>
@@ -100,7 +106,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
             </div>
 
             {message && status === "error" && (
-              <div className="text-destructive text-sm">{message}</div>
+              <div className="text-destructive text-xl">{message}</div>
             )}
 
             <Button

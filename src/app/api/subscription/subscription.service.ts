@@ -80,10 +80,10 @@ export class SubscriptionService {
       ],
       success_url: `${
         process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
-      }/#plans-pricing?success=true`,
+      }/#plans-pricing`,
       cancel_url: `${
         process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
-      }/#plans-pricing?canceled=true`,
+      }/#plans-pricing`,
       metadata: {
         userId: user.id,
       },

@@ -41,7 +41,9 @@ export default function SubscriptionManagement({
       <div
         className={cn(
           "grid gap-8 justify-center",
-          onlyShow4MonthPlan ? "grid-cols-1" : "md:grid-cols-3 w-full"
+          onlyShow4MonthPlan
+            ? "grid-cols-1"
+            : "md:grid-cols-3 w-full max-w-4xl mx-auto"
         )}
       >
         {isLoading && <p>Loading plans...</p>}
@@ -93,6 +95,8 @@ export default function SubscriptionManagement({
                   : "Join Now"
               }
               onJoinNow={async () => {
+                setSelectedPriceId(plan.id);
+
                 if (user?.user?.id) {
                   if (isCurrent) {
                     if (currentSubId) {
@@ -130,8 +134,6 @@ export default function SubscriptionManagement({
                         refetch();
                       }
                     }
-                  } else {
-                    setSelectedPriceId(plan.id);
                   }
                 } else {
                   setAuthOpen(true);
@@ -142,7 +144,13 @@ export default function SubscriptionManagement({
         })}
       </div>
 
-      <LoginModal isOpen={authOpen} onClose={() => setAuthOpen(false)} />
+      <LoginModal
+        isOpen={authOpen}
+        onClose={() => setAuthOpen(false)}
+        searchParams={{
+          subscriptionPriceId: selectedPriceId ?? "",
+        }}
+      />
     </>
   );
 }

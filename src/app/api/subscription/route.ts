@@ -1,6 +1,6 @@
+import { logger } from "@/lib/logger";
 import { TypedNextResponse, route, routeOperation } from "next-rest-framework";
 import { z } from "zod";
-import { logger } from "@/lib/logger";
 import { AuthService } from "../auth/auth.service";
 import { SubscriptionSchema } from "./subscription.schema";
 import SubscriptionService from "./subscription.service";
@@ -26,15 +26,15 @@ export const { GET, POST, PATCH, PUT, DELETE } = route({
     ])
     .handler(async () => {
       try {
-        logger.info('Get current subscription request started');
+        logger.info("Get current subscription request started");
 
         const user = await AuthService.getCurrentUser();
         if (!user) {
-          logger.warn('Unauthorized subscription request - no user');
+          logger.warn("Unauthorized subscription request - no user");
           return TypedNextResponse.json("Unauthorized", { status: 401 });
         }
 
-        logger.info('Fetching subscription for user', {
+        logger.info("Fetching subscription for user", {
           userId: user.id,
           email: user.email,
           stripeCustomerId: user.stripeCustomerId,
@@ -44,7 +44,7 @@ export const { GET, POST, PATCH, PUT, DELETE } = route({
           user
         )) as any;
 
-        logger.info('Subscription fetched successfully', {
+        logger.info("Subscription fetched successfully", {
           userId: user.id,
           hasSubscription: !!sub,
           subscriptionId: sub?.id,
@@ -56,7 +56,7 @@ export const { GET, POST, PATCH, PUT, DELETE } = route({
           { status: 200 }
         );
       } catch (err: any) {
-        logger.error('Get current subscription failed', err, {
+        logger.error("Get current subscription failed", err, {
           errorCode: err?.code,
         });
         return TypedNextResponse.json(
@@ -91,8 +91,8 @@ export const { GET, POST, PATCH, PUT, DELETE } = route({
     ])
     .handler(async (req) => {
       const startTime = Date.now();
-      let userId = '';
-      let priceId = '';
+      let userId = "";
+      let priceId = "";
 
       try {
         const body = await req.json();
@@ -100,13 +100,13 @@ export const { GET, POST, PATCH, PUT, DELETE } = route({
 
         const user = await AuthService.getCurrentUser();
         if (!user) {
-          logger.warn('Unauthorized create subscription request - no user');
+          logger.warn("Unauthorized create subscription request - no user");
           return TypedNextResponse.json("Unauthorized", { status: 401 });
         }
 
         userId = user.id;
 
-        logger.info('Create subscription request started', {
+        logger.info("Create subscription request started", {
           userId: user.id,
           email: user.email,
           priceId,
@@ -119,7 +119,7 @@ export const { GET, POST, PATCH, PUT, DELETE } = route({
         );
 
         const duration = Date.now() - startTime;
-        logger.info('Subscription created successfully', {
+        logger.info("Subscription created successfully", {
           userId,
           priceId,
           duration: `${duration}ms`,
@@ -130,7 +130,7 @@ export const { GET, POST, PATCH, PUT, DELETE } = route({
         return TypedNextResponse.json(result as any, { status: 201 });
       } catch (err: any) {
         const duration = Date.now() - startTime;
-        logger.error('Create subscription failed', err, {
+        logger.error("Create subscription failed", err, {
           userId,
           priceId,
           duration: `${duration}ms`,
@@ -170,19 +170,19 @@ export const { GET, POST, PATCH, PUT, DELETE } = route({
     ])
     .handler(async (req) => {
       const startTime = Date.now();
-      let userId = '';
+      let userId = "";
 
       try {
         const { subscriptionId, priceId } = await req.json();
         const user = await AuthService.getCurrentUser();
         if (!user) {
-          logger.warn('Unauthorized update subscription request - no user');
+          logger.warn("Unauthorized update subscription request - no user");
           return TypedNextResponse.json("Unauthorized", { status: 401 });
         }
 
         userId = user.id;
 
-        logger.info('Update subscription request started', {
+        logger.info("Update subscription request started", {
           userId: user.id,
           subscriptionId,
           priceId,
@@ -195,7 +195,7 @@ export const { GET, POST, PATCH, PUT, DELETE } = route({
         );
 
         const duration = Date.now() - startTime;
-        logger.info('Subscription updated successfully', {
+        logger.info("Subscription updated successfully", {
           userId,
           subscriptionId,
           priceId,
@@ -205,7 +205,7 @@ export const { GET, POST, PATCH, PUT, DELETE } = route({
         return TypedNextResponse.json(result as any, { status: 200 });
       } catch (err: any) {
         const duration = Date.now() - startTime;
-        logger.error('Update subscription failed', err, {
+        logger.error("Update subscription failed", err, {
           userId,
           duration: `${duration}ms`,
         });
@@ -266,19 +266,19 @@ export const { GET, POST, PATCH, PUT, DELETE } = route({
     ])
     .handler(async (req) => {
       const startTime = Date.now();
-      let userId = '';
+      let userId = "";
 
       try {
         const { subscriptionId, atPeriodEnd } = await req.json();
         const user = await AuthService.getCurrentUser();
         if (!user) {
-          logger.warn('Unauthorized cancel subscription request - no user');
+          logger.warn("Unauthorized cancel subscription request - no user");
           return TypedNextResponse.json("Unauthorized", { status: 401 });
         }
 
         userId = user.id;
 
-        logger.info('Cancel subscription request started', {
+        logger.info("Cancel subscription request started", {
           userId: user.id,
           subscriptionId,
           atPeriodEnd: atPeriodEnd ?? true,
@@ -291,7 +291,7 @@ export const { GET, POST, PATCH, PUT, DELETE } = route({
         );
 
         const duration = Date.now() - startTime;
-        logger.info('Subscription cancelled successfully', {
+        logger.info("Subscription cancelled successfully", {
           userId,
           subscriptionId,
           atPeriodEnd: atPeriodEnd ?? true,
@@ -301,7 +301,7 @@ export const { GET, POST, PATCH, PUT, DELETE } = route({
         return TypedNextResponse.json(res, { status: 200 });
       } catch (err: any) {
         const duration = Date.now() - startTime;
-        logger.error('Cancel subscription failed', err, {
+        logger.error("Cancel subscription failed", err, {
           userId,
           duration: `${duration}ms`,
         });

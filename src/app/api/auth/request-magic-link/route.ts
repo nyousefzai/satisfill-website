@@ -1,6 +1,6 @@
+import { logger } from "@/lib/logger";
 import { TypedNextResponse, route, routeOperation } from "next-rest-framework";
 import { z } from "zod";
-import { logger } from "@/lib/logger";
 import { EmailService } from "../../email/email.service";
 import { magicLinkRequestSchema } from "../auth.schema";
 import { AuthService } from "../auth.service";
@@ -22,33 +22,40 @@ export const { POST } = route({
     ])
     .handler(async (req) => {
       const startTime = Date.now();
-      let email = '';
+      let email = "";
 
       try {
         const body = await req.json();
         email = body.email;
 
-        logger.info('Magic link request started', {
+        logger.info("Magic link request started", {
           email,
           origin: req.nextUrl.origin,
-          userAgent: req.headers.get('user-agent'),
+          userAgent: req.headers.get("user-agent"),
         });
 
-        logger.info('Generating magic link token', { email });
+        logger.info("Generating magic link token", { email });
         const token = await AuthService.generateMagicLink(email);
 
         // Use NEXT_PUBLIC_APP_URL for production, fallback to origin for dev
         const baseUrl = process.env.NEXT_PUBLIC_APP_URL || req.nextUrl.origin;
-        const magicLink = `${baseUrl}/auth/verify?token=${token}&email=${encodeURIComponent(email)}`;
+        const searchParams = body.searchParams || {};
+        const query = new URLSearchParams(
+          searchParams as Record<string, string>
+        );
+        query.set("token", token);
+        query.set("email", email);
 
-        logger.info('Magic link generated successfully', {
+        const magicLink = `${baseUrl}/auth/verify?${query.toString()}`;
+
+        logger.info("Magic link generated successfully", {
           email,
           tokenLength: token.length,
           linkLength: magicLink.length,
-          baseUrl,
+          magicLink,
         });
 
-        logger.info('Sending magic link email', {
+        logger.info("Sending magic link email", {
           email,
           from: process.env.EMAIL_FROM,
           smtpUser: process.env.MAILGUN_SMTP_USER,
@@ -62,7 +69,7 @@ export const { POST } = route({
         });
 
         const duration = Date.now() - startTime;
-        logger.info('Magic link sent successfully', {
+        logger.info("Magic link sent successfully", {
           email,
           duration: `${duration}ms`,
         });
@@ -74,7 +81,7 @@ export const { POST } = route({
       } catch (err: any) {
         const duration = Date.now() - startTime;
 
-        logger.error('Magic link request failed', err, {
+        logger.error("Magic link request failed", err, {
           email,
           duration: `${duration}ms`,
           errorCode: err?.code,
@@ -84,22 +91,27 @@ export const { POST } = route({
         // Provide more specific error messages
         let errorMessage = "Failed to send magic link";
 
-        if (err?.message?.includes("database") || err?.message?.includes("prisma")) {
+        if (
+          err?.message?.includes("database") ||
+          err?.message?.includes("prisma")
+        ) {
           errorMessage = "Database connection error. Please try again later.";
-          logger.error('Database error in magic link', err, { email });
-        } else if (err?.message?.includes("email") || err?.message?.includes("send") || err?.code === 'EAUTH') {
-          errorMessage = "Failed to send email. Please check your email address.";
-          logger.error('Email sending error in magic link', err, {
+          logger.error("Database error in magic link", err, { email });
+        } else if (
+          err?.message?.includes("email") ||
+          err?.message?.includes("send") ||
+          err?.code === "EAUTH"
+        ) {
+          errorMessage =
+            "Failed to send email. Please check your email address.";
+          logger.error("Email sending error in magic link", err, {
             email,
             smtpUser: process.env.MAILGUN_SMTP_USER,
             emailFrom: process.env.EMAIL_FROM,
           });
         }
 
-        return TypedNextResponse.json(
-          { error: errorMessage },
-          { status: 400 }
-        );
+        return TypedNextResponse.json({ error: errorMessage }, { status: 400 });
       }
     }),
 });

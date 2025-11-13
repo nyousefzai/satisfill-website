@@ -166,10 +166,12 @@
             }
           },
           "500": {
-            "description": "An unknown error occurred, trying again might help.",
+            "description": "Response for status 500",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorMessage" }
+                "schema": {
+                  "$ref": "#/components/schemas/Contact500ResponseBody"
+                }
               }
             }
           }
@@ -235,10 +237,12 @@
             }
           },
           "500": {
-            "description": "An unknown error occurred, trying again might help.",
+            "description": "Response for status 500",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorMessage" }
+                "schema": {
+                  "$ref": "#/components/schemas/GetCurrentSubscription500ResponseBody"
+                }
               }
             }
           }
@@ -277,10 +281,12 @@
             }
           },
           "500": {
-            "description": "An unknown error occurred, trying again might help.",
+            "description": "Response for status 500",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorMessage" }
+                "schema": {
+                  "$ref": "#/components/schemas/CreateSubscription500ResponseBody"
+                }
               }
             }
           }
@@ -319,10 +325,12 @@
             }
           },
           "500": {
-            "description": "An unknown error occurred, trying again might help.",
+            "description": "Response for status 500",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorMessage" }
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateSubscription500ResponseBody"
+                }
               }
             }
           }
@@ -393,10 +401,12 @@
             }
           },
           "500": {
-            "description": "An unknown error occurred, trying again might help.",
+            "description": "Response for status 500",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorMessage" }
+                "schema": {
+                  "$ref": "#/components/schemas/CancelSubscription500ResponseBody"
+                }
               }
             }
           }
@@ -418,10 +428,12 @@
             }
           },
           "500": {
-            "description": "An unknown error occurred, trying again might help.",
+            "description": "Response for status 500",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorMessage" }
+                "schema": {
+                  "$ref": "#/components/schemas/ListPlans500ResponseBody"
+                }
               }
             }
           }
@@ -524,6 +536,12 @@
         "additionalProperties": false
       },
       "CancelSubscription401ResponseBody": { "type": "string" },
+      "CancelSubscription500ResponseBody": {
+        "type": "object",
+        "properties": { "error": { "type": "string" } },
+        "required": ["error"],
+        "additionalProperties": false
+      },
       "CancelSubscriptionRequestBody": {
         "type": "object",
         "properties": {
@@ -539,15 +557,21 @@
         "required": ["message"],
         "additionalProperties": false
       },
+      "Contact500ResponseBody": {
+        "type": "object",
+        "properties": { "error": { "type": "string" } },
+        "required": ["error"],
+        "additionalProperties": false
+      },
       "ContactRequestBody": {
         "type": "object",
         "properties": {
           "name": { "type": "string", "minLength": 1 },
           "email": { "type": "string", "format": "email" },
-          "subject": { "type": "string", "minLength": 1 },
-          "message": { "type": "string", "minLength": 10 }
+          "subject": { "type": "string" },
+          "message": { "type": "string" }
         },
-        "required": ["name", "email", "subject", "message"],
+        "required": ["name", "email"],
         "additionalProperties": false
       },
       "CreateSubscription201ResponseBody": {
@@ -655,6 +679,12 @@
         "additionalProperties": false
       },
       "CreateSubscription401ResponseBody": { "type": "string" },
+      "CreateSubscription500ResponseBody": {
+        "type": "object",
+        "properties": { "error": { "type": "string" } },
+        "required": ["error"],
+        "additionalProperties": false
+      },
       "CreateSubscriptionRequestBody": {
         "type": "object",
         "properties": { "priceId": { "type": "string" } },
@@ -769,6 +799,12 @@
         "additionalProperties": false
       },
       "GetCurrentSubscription401ResponseBody": { "type": "string" },
+      "GetCurrentSubscription500ResponseBody": {
+        "type": "object",
+        "properties": { "error": { "type": "string" } },
+        "required": ["error"],
+        "additionalProperties": false
+      },
       "GetCurrentUser200ResponseBody": {
         "type": "object",
         "properties": {
@@ -837,6 +873,12 @@
           "required": ["id"],
           "additionalProperties": false
         }
+      },
+      "ListPlans500ResponseBody": {
+        "type": "object",
+        "properties": { "error": { "type": "string" } },
+        "required": ["error"],
+        "additionalProperties": false
       },
       "Logout200ResponseBody": {
         "type": "object",
@@ -959,7 +1001,15 @@
       },
       "RequestMagicLinkRequestBody": {
         "type": "object",
-        "properties": { "email": { "type": "string", "format": "email" } },
+        "properties": {
+          "email": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"
+          },
+          "searchParams": {}
+        },
         "required": ["email"],
         "additionalProperties": false
       },
@@ -1080,6 +1130,12 @@
         "additionalProperties": false
       },
       "UpdateSubscription401ResponseBody": { "type": "string" },
+      "UpdateSubscription500ResponseBody": {
+        "type": "object",
+        "properties": { "error": { "type": "string" } },
+        "required": ["error"],
+        "additionalProperties": false
+      },
       "UpdateSubscriptionRequestBody": {
         "type": "object",
         "properties": {

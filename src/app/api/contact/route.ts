@@ -1,6 +1,6 @@
+import { logger } from "@/lib/logger";
 import { TypedNextResponse, route, routeOperation } from "next-rest-framework";
 import { z } from "zod";
-import { logger } from "@/lib/logger";
 import { EmailService } from "../email/email.service";
 import { contactSchema } from "./contact.schema";
 
@@ -32,7 +32,7 @@ export const { POST } = route({
       try {
         const data = await req.json();
 
-        logger.info('Contact form submission started', {
+        logger.info("Contact form submission started", {
           name: data.name,
           email: data.email,
           subject: data.subject,
@@ -47,7 +47,7 @@ export const { POST } = route({
         });
 
         const duration = Date.now() - startTime;
-        logger.info('Contact form email sent successfully', {
+        logger.info("Contact form email sent successfully", {
           email: data.email,
           duration: `${duration}ms`,
         });
@@ -58,7 +58,7 @@ export const { POST } = route({
         );
       } catch (err: any) {
         const duration = Date.now() - startTime;
-        logger.error('Contact form submission failed', err, {
+        logger.error("Contact form submission failed", err, {
           duration: `${duration}ms`,
           errorCode: err?.code,
         });

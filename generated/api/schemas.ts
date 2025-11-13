@@ -53,6 +53,10 @@ export type CancelSubscription200ResponseBody = {
 
 export type CancelSubscription401ResponseBody = string;
 
+export type CancelSubscription500ResponseBody = {
+  error: string;
+};
+
 export type CancelSubscriptionRequestBody = {
   subscriptionId: string;
   atPeriodEnd?: boolean;
@@ -60,6 +64,10 @@ export type CancelSubscriptionRequestBody = {
 
 export type Contact200ResponseBody = {
   message: string;
+};
+
+export type Contact500ResponseBody = {
+  error: string;
 };
 
 export type ContactRequestBody = {
@@ -71,14 +79,8 @@ export type ContactRequestBody = {
    * @format email
    */
   email: string;
-  /**
-   * @minLength 1
-   */
-  subject: string;
-  /**
-   * @minLength 10
-   */
-  message: string;
+  subject?: string;
+  message?: string;
 };
 
 export type CreateSubscription201ResponseBody = {
@@ -134,6 +136,10 @@ export type CreateSubscription201ResponseBody = {
 };
 
 export type CreateSubscription401ResponseBody = string;
+
+export type CreateSubscription500ResponseBody = {
+  error: string;
+};
 
 export type CreateSubscriptionRequestBody = {
   priceId: string;
@@ -194,6 +200,10 @@ export type GetCurrentSubscription200ResponseBody = {
 
 export type GetCurrentSubscription401ResponseBody = string;
 
+export type GetCurrentSubscription500ResponseBody = {
+  error: string;
+};
+
 export type GetCurrentUser200ResponseBody = {
   user: {
     id: string;
@@ -232,6 +242,10 @@ export type ListPlans200ResponseBody = {
     interval_count?: number;
   } | null;
 }[];
+
+export type ListPlans500ResponseBody = {
+  error: string;
+};
 
 export type Logout200ResponseBody = {
   message: string;
@@ -299,9 +313,12 @@ export type RequestMagicLink400ResponseBody = {
 
 export type RequestMagicLinkRequestBody = {
   /**
-   * @format email
+   * @minLength 1
+   * @maxLength 255
+   * @pattern ^[^\s@]+@[^\s@]+\.[^\s@]+$
    */
   email: string;
+  searchParams?: void;
 };
 
 export type SubscribeNewsletter200ResponseBody = {
@@ -368,6 +385,10 @@ export type UpdateSubscription200ResponseBody = {
 };
 
 export type UpdateSubscription401ResponseBody = string;
+
+export type UpdateSubscription500ResponseBody = {
+  error: string;
+};
 
 export type UpdateSubscriptionRequestBody = {
   subscriptionId: string;

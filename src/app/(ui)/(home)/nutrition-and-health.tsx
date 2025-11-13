@@ -56,7 +56,7 @@ export default function NutritionAndHealth() {
   return (
     <div id="nutrition-and-health">
       <div>
-        <header className="px-4 py-1 bg-sky-200">
+        <header className="px-4 py-4 bg-sky-200">
           <div className="section flex items-center gap-4">
             <div>
               <Image
@@ -76,24 +76,24 @@ export default function NutritionAndHealth() {
 
         <div className="text-center pt-20">
           <div>
-            <div className="text-3xl font-semibold text-sky-700">
+            <div className="text-3xl md:text-4xl font-semibold text-sky-700">
               The Satisfill Diet is -
             </div>
 
-            <div className="my-10 w-full max-w-[300px] mx-auto">
+            <div className="my-10 w-full max-w-[400px] mx-auto">
               <div className="max-w-md mx-auto rounded overflow-hidden">
-                <div className="grid grid-cols-2 text-white font-bold text-2xl">
-                  <div className="bg-sky-700 text-center py-2">HIGH</div>
-                  <div className="bg-green-600 text-center py-2">LOW</div>
+                <div className="grid grid-cols-2 text-white font-bold text-2xl md:text-3xl">
+                  <div className="bg-sky-700 text-center py-4">HIGH</div>
+                  <div className="bg-green-600 text-center py-4">LOW</div>
                 </div>
 
-                <div className="grid grid-cols-2 text-black font-bold text-xl">
-                  <div className="bg-sky-200 text-center py-4 space-y-2">
+                <div className="grid grid-cols-2 text-black font-bold text-xl md:text-2xl">
+                  <div className="bg-sky-200 text-center py-4 space-y-4">
                     <div>Fiber</div>
                     <div>Protein</div>
                   </div>
 
-                  <div className="bg-green-200 text-center py-4 space-y-2">
+                  <div className="bg-green-200 text-center py-4 space-y-4">
                     <div>Calories</div>
                     <div>Fat</div>
                     <div>Sugar</div>
@@ -105,7 +105,7 @@ export default function NutritionAndHealth() {
         </div>
       </div>
 
-      <div className="section px-4 pb-20 text-lg">
+      <div className="mt-20 px-4 pb-20 text-lg max-w-[770px] mx-auto leading-5.5">
         <p>
           In addition to being the most satisfying diet, and the easiest diet to
           follow, the Satisfill Diet is also the <b>smartest way to eat</b>, if
@@ -113,7 +113,7 @@ export default function NutritionAndHealth() {
           and longevity.
         </p>
         <div>
-          <p className="text-center text-green-700 text-2xl font-semibold mt-10 mb-2">
+          <p className="text-center text-green-600 text-2xl md:text-3xl font-semibold mt-10 mb-3">
             A Plant-Based Semi-Vegetarian Diet
           </p>
           The Satisfill Diet is a plant-based vegetarian diet, but a more
@@ -128,7 +128,7 @@ export default function NutritionAndHealth() {
           </b>
         </div>
         <div className="mt-20">
-          <p className="text-center text-sky-700 text-2xl font-semibold mb-2">
+          <p className="text-center text-sky-700 text-2xl md:text-3xl font-semibold mb-3">
             Meets or Exceeds Most Dietary Guidelines
           </p>
           The Satisfill Diet meets or exceeds nearly all the major dietary
@@ -136,22 +136,30 @@ export default function NutritionAndHealth() {
           Heart Association, American Cancer Society, and American Dietetic
           Association.
         </div>
-        <table className="w-full">
+        <table className="w-full mt-5 max-w-xl mx-auto">
           <thead>
-            <tr className="[&>th]:border-b [&>th]:border-gray-300 [&>th]:py-2 text-left">
-              <th>Nutrient</th>
-              <th>Dietary Guideline</th>
-              <th>1200 Calories</th>
-              <th>1800 Calories</th>
-              <th>Level</th>
+            <tr className="[&>td]:py-2 [&>td]:align-bottom [&>td]:underline-offset-2 text-left ">
+              <td>
+                <u>Nutrient</u>
+              </td>
+              <td>
+                <u>Dietary Guideline</u>
+              </td>
+              <td>
+                1200 <br /> <u>Calories</u>
+              </td>
+              <td>
+                1800
+                <br /> <u>Calories</u>
+              </td>
+              <td>
+                <u>Level</u>
+              </td>
             </tr>
           </thead>
           <tbody>
             {nutritionData.map((row, index) => (
-              <tr
-                key={index}
-                className="[&>td]:py-2 [&>td]:border-b [&>td]:border-gray-200"
-              >
+              <tr key={index} className="[&>td]:py-3">
                 <td className="">{row.nutrient}</td>
                 <td className="">{row.guideline}</td>
                 <td className="text-center">{row.cal1200}</td>
@@ -166,10 +174,13 @@ export default function NutritionAndHealth() {
         Not only does the Satisfill Diet meet or exceed nearly all the major
         dietary guidelines established by most health agencies,{" "}
         <b>
-          but it performs just as well when compared to the US News and World
-          Report rating the 8 Best Diets of 2025 for Healthy Eating —
+          but it performs just as well when compared to the{" "}
+          <i>
+            US News and World Report rating the 8 Best Diets of 2025 for Healthy
+            Eating —
+          </i>
         </b>
-        <div className="grid md:grid-cols-2 mt-10 md:pl-20">
+        <div className="grid md:grid-cols-2 mt-5 md:pl-15 mb-20">
           {[
             "Mediterranean Diet",
             "Flexitarian Diet",

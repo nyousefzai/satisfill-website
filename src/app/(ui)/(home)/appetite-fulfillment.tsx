@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 export default function AppetiteFulfillment() {
@@ -9,7 +10,7 @@ export default function AppetiteFulfillment() {
         }}
         className="bg-cover bg-center w-full"
       >
-        <header className="bg-white/50 px-4 py-1">
+        <header className="bg-white/90 px-4 py-4">
           <div className="section flex items-center gap-4">
             <div>
               <Image
@@ -28,8 +29,12 @@ export default function AppetiteFulfillment() {
         </header>
 
         <div className="text-center italic py-20 px-4">
-          <div className="text-3xl font-semibold mb-2">The Science of</div>
-          <div className="text-4xl  font-semibold">Appetite Fulfillment</div>
+          <div className="text-3xl md:text-4xl font-semibold mb-2">
+            The Science of
+          </div>
+          <div className="text-4xl md:text-5xl  font-semibold">
+            Appetite Fulfillment
+          </div>
 
           <div className="my-20">
             <Image
@@ -42,20 +47,24 @@ export default function AppetiteFulfillment() {
           </div>
 
           <div className="font-semibold mb-2">
-            <span className="text-3xl">
+            <span className="text-3xl md:text-4xl">
               {" "}
               The solution to the problem of
               <br /> why nearly all diets fail –
             </span>
-            <br /> <span className="text-4xl">Constant Hunger</span>
+            <br /> <span className="text-4xl md:text-5xl">Constant Hunger</span>
           </div>
         </div>
       </div>
 
-      <div className="section py-20 text-lg px-4">
+      <div
+        className={cn("py-20 text-lg px-4 max-w-[770px] mx-auto leading-5.5")}
+      >
         <div>
-          <h4 className="text-sky-700">
-            <b>Physical Hunger — Your Stomach</b>
+          <h4 className="text-sky-700 text-xl mb-4">
+            <b>
+              Physical Hunger — <i>Your Stomach</i>
+            </b>
           </h4>
           When your stomach is empty, you experience true physical hunger, which
           is characterized by a profound empty feeling in your stomach. This
@@ -91,8 +100,10 @@ export default function AppetiteFulfillment() {
         </div>
 
         <div>
-          <h4 className="text-green-700">
-            <b>Taste Hunger — Your Palate</b>
+          <h4 className="text-green-600 text-xl mb-4">
+            <b>
+              Taste Hunger — <i>Your Palate</i>
+            </b>
           </h4>
           Just as compelling as the need to satisfy the physical hunger in your
           stomach is the need to satisfy the taste hunger in your mouth, and on
@@ -101,7 +112,7 @@ export default function AppetiteFulfillment() {
           comes from the taste of food. Indeed, food was made not just to be
           eaten, but to be tasted, savored, and enjoyed. <br />
           <br />
-          <h4 className="text-green-700">
+          <h4 className="text-green-600">
             <b>
               The Satisfill Diet may be the best tasting diet plan ever
               developed.
@@ -119,7 +130,7 @@ export default function AppetiteFulfillment() {
           foods that you have ever had in your life.
           <br />
           <br />
-          <b className="text-green-700">Comfort Foods:</b> Comfort foods are
+          <b className="text-green-600">Comfort Foods:</b> Comfort foods are
           sometimes described as foods that people turn to during times of
           emotional stress. However, in the context of Appetite Fulfillment,
           comfort foods are -- foods that we are familiar with, foods that we
@@ -128,11 +139,11 @@ export default function AppetiteFulfillment() {
           our heritage, our culture, and the American Cuisine.
           <br />
           <br />
-          <b className="text-green-700">
+          <b className="text-green-600">
             The Satisfill Diet is American Cuisine at its finest, featuring many
             of the Comfort Foods that we have grown to know and love —
           </b>
-          <div className="grid grid-cols-1 italic sm:grid-cols-3 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 italic sm:grid-cols-3 max-w-xl mx-auto font-normal">
             {[
               "Cold Cereal",
               "Turkey Sandwich",
@@ -159,8 +170,9 @@ export default function AppetiteFulfillment() {
         </div>
 
         <div className="mt-20">
-          <b className="text-orange-400">Psychological Hunger - Your Mind</b>
-          <br />
+          <p className="text-orange-500 mb-4 text-xl font-bold">
+            Psychological Hunger - <i>Your Mind</i>
+          </p>
           Food doesn&apos;t just reside in grocery stores, and restaurants, and
           in your pantry and refrigerator at home. Food is very much in your
           mind as well. You think about food a lot, and this is not surprising,
