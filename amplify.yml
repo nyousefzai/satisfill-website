@@ -23,6 +23,7 @@ frontend:
         - echo "EMAIL_RECEIVER=$EMAIL_RECEIVER" >> .env
         - export NODE_ENV=production
         - export NEXT_TELEMETRY_DISABLED=1
+        - npx prisma generate
         - yarn run build
   artifacts:
     baseDirectory: .next

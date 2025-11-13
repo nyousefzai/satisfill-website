@@ -5,8 +5,13 @@ const nextConfig: NextConfig = {
   compiler: {
     styledComponents: true,
   },
-  experimental: {
-    optimizePackageImports: ["@prisma/client"],
+  // Remove optimizePackageImports for Prisma - it breaks binary copying
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      // Copy Prisma binaries for serverless deployment
+      config.externals = [...(config.externals || []), "@prisma/client"];
+    }
+    return config;
   },
 };
 
