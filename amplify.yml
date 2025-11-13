@@ -14,8 +14,9 @@ frontend:
         - yarn install
     build:
       commands:
-        - echo "DATABASE_URL=$DATABASE_URL" >> .env
+        - echo "DATABASE_URL=\"$DATABASE_URL\"" >> .env
         - echo "STRIPE_SECRET_KEY=$STRIPE_SECRET_KEY" >> .env
+        - echo "NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL" >> .env
         - echo "MAILGUN_SMTP_USER=$MAILGUN_SMTP_USER" >> .env
         - echo "MAILGUN_SMTP_PASS=$MAILGUN_SMTP_PASS" >> .env
         - echo "EMAIL_FROM=$EMAIL_FROM" >> .env
