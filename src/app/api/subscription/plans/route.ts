@@ -1,5 +1,6 @@
 import { TypedNextResponse, route, routeOperation } from "next-rest-framework";
 import { z } from "zod";
+import { logger } from "@/lib/logger";
 import { PriceSchema } from "../subscription.schema";
 import SubscriptionService from "../subscription.service";
 
@@ -20,17 +21,31 @@ export const { GET } = route({
       },
     ])
     .handler(async () => {
+      const startTime = Date.now();
+
       try {
-        console.log("[Subscription] Fetching plans from Stripe");
+        logger.info('List plans request started', {
+          stripeKeyPresent: !!process.env.STRIPE_SECRET_KEY,
+        });
+
         const plans = await SubscriptionService.listPlans();
-        console.log(`[Subscription] Found ${plans.length} plans`);
+
+        const duration = Date.now() - startTime;
+        logger.info('Plans fetched successfully', {
+          planCount: plans.length,
+          duration: `${duration}ms`,
+          planIds: plans.map(p => p.id),
+        });
+
         return TypedNextResponse.json(plans, { status: 200 });
       } catch (err: any) {
-        console.error("[Subscription] List plans error:", {
-          message: err?.message,
-          stack: err?.stack,
-          error: err,
+        const duration = Date.now() - startTime;
+        logger.error('List plans failed', err, {
+          duration: `${duration}ms`,
+          errorCode: err?.code,
+          stripeError: err?.type,
         });
+
         return TypedNextResponse.json(
           { error: err?.message || "Failed to fetch plans" },
           { status: 500 }

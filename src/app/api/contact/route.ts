@@ -1,5 +1,6 @@
 import { TypedNextResponse, route, routeOperation } from "next-rest-framework";
 import { z } from "zod";
+import { logger } from "@/lib/logger";
 import { EmailService } from "../email/email.service";
 import { contactSchema } from "./contact.schema";
 
@@ -19,17 +20,46 @@ export const { POST } = route({
       },
     ])
     .handler(async (req) => {
-      const data = await req.json();
+      const startTime = Date.now();
 
-      await EmailService.sendEmail({
-        to: process.env.EMAIL_RECEIVER || "",
-        subject: `Contact Form Submission: ${data.subject}`,
-        text: `Name: ${data.name}\nEmail: ${data.email}\nSubject: ${data.subject}\nMessage:\n${data.message}`,
-      });
+      try {
+        const data = await req.json();
 
-      return TypedNextResponse.json(
-        { message: "Contact form submitted successfully" },
-        { status: 200 }
-      );
+        logger.info('Contact form submission started', {
+          name: data.name,
+          email: data.email,
+          subject: data.subject,
+          hasMessage: !!data.message,
+          receiver: process.env.EMAIL_RECEIVER,
+        });
+
+        await EmailService.sendEmail({
+          to: process.env.EMAIL_RECEIVER || "",
+          subject: `Contact Form Submission: ${data.subject}`,
+          text: `Name: ${data.name}\nEmail: ${data.email}\nSubject: ${data.subject}\nMessage:\n${data.message}`,
+        });
+
+        const duration = Date.now() - startTime;
+        logger.info('Contact form email sent successfully', {
+          email: data.email,
+          duration: `${duration}ms`,
+        });
+
+        return TypedNextResponse.json(
+          { message: "Contact form submitted successfully" },
+          { status: 200 }
+        );
+      } catch (err: any) {
+        const duration = Date.now() - startTime;
+        logger.error('Contact form submission failed', err, {
+          duration: `${duration}ms`,
+          errorCode: err?.code,
+        });
+
+        return TypedNextResponse.json(
+          { error: err?.message || "Failed to send contact form" },
+          { status: 500 }
+        );
+      }
     }),
 });

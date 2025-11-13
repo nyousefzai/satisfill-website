@@ -1,5 +1,6 @@
 import { TypedNextResponse, route, routeOperation } from "next-rest-framework";
 import { z } from "zod";
+import { logger } from "@/lib/logger";
 import { EmailService } from "../../email/email.service";
 import { magicLinkRequestSchema } from "../auth.schema";
 import { AuthService } from "../auth.service";
@@ -20,18 +21,38 @@ export const { POST } = route({
       },
     ])
     .handler(async (req) => {
-      try {
-        const { email } = await req.json();
+      const startTime = Date.now();
+      let email = '';
 
-        console.log(`[Magic Link] Generating token for ${email}`);
+      try {
+        const body = await req.json();
+        email = body.email;
+
+        logger.info('Magic link request started', {
+          email,
+          origin: req.nextUrl.origin,
+          userAgent: req.headers.get('user-agent'),
+        });
+
+        logger.info('Generating magic link token', { email });
         const token = await AuthService.generateMagicLink(email);
 
         const magicLink = `${
           req.nextUrl.origin
         }/auth/verify?token=${token}&email=${encodeURIComponent(email)}`;
-        console.log(`[Magic Link] Generated link for ${email}: ${magicLink}`);
 
-        console.log(`[Magic Link] Sending email to ${email}`);
+        logger.info('Magic link generated successfully', {
+          email,
+          tokenLength: token.length,
+          linkLength: magicLink.length,
+        });
+
+        logger.info('Sending magic link email', {
+          email,
+          from: process.env.EMAIL_FROM,
+          smtpUser: process.env.MAILGUN_SMTP_USER,
+        });
+
         await EmailService.sendEmail({
           to: email,
           subject: "Your Magic Login Link",
@@ -39,16 +60,24 @@ export const { POST } = route({
           html: renderTemplate(magicLink),
         });
 
-        console.log(`[Magic Link] Email sent successfully to ${email}`);
+        const duration = Date.now() - startTime;
+        logger.info('Magic link sent successfully', {
+          email,
+          duration: `${duration}ms`,
+        });
+
         return TypedNextResponse.json({
           message:
             "Magic link sent to your email. Check your email and follow the link.",
         });
       } catch (err: any) {
-        console.error("[Magic Link] Error details:", {
-          message: err?.message,
-          stack: err?.stack,
-          error: err,
+        const duration = Date.now() - startTime;
+
+        logger.error('Magic link request failed', err, {
+          email,
+          duration: `${duration}ms`,
+          errorCode: err?.code,
+          errorType: err?.name,
         });
 
         // Provide more specific error messages
@@ -56,8 +85,14 @@ export const { POST } = route({
 
         if (err?.message?.includes("database") || err?.message?.includes("prisma")) {
           errorMessage = "Database connection error. Please try again later.";
-        } else if (err?.message?.includes("email") || err?.message?.includes("send")) {
+          logger.error('Database error in magic link', err, { email });
+        } else if (err?.message?.includes("email") || err?.message?.includes("send") || err?.code === 'EAUTH') {
           errorMessage = "Failed to send email. Please check your email address.";
+          logger.error('Email sending error in magic link', err, {
+            email,
+            smtpUser: process.env.MAILGUN_SMTP_USER,
+            emailFrom: process.env.EMAIL_FROM,
+          });
         }
 
         return TypedNextResponse.json(
