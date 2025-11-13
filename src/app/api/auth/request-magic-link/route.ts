@@ -37,14 +37,15 @@ export const { POST } = route({
         logger.info('Generating magic link token', { email });
         const token = await AuthService.generateMagicLink(email);
 
-        const magicLink = `${
-          req.nextUrl.origin
-        }/auth/verify?token=${token}&email=${encodeURIComponent(email)}`;
+        // Use NEXT_PUBLIC_APP_URL for production, fallback to origin for dev
+        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || req.nextUrl.origin;
+        const magicLink = `${baseUrl}/auth/verify?token=${token}&email=${encodeURIComponent(email)}`;
 
         logger.info('Magic link generated successfully', {
           email,
           tokenLength: token.length,
           linkLength: magicLink.length,
+          baseUrl,
         });
 
         logger.info('Sending magic link email', {
