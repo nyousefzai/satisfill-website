@@ -23,6 +23,10 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 const INPUT_STYLES = cn(
+  "rounded-none focus-visible:ring-pink-400/50 border-black"
+);
+
+const INPUT_ERROR_STYLES = cn(
   "rounded-none focus-visible:ring-pink-400/50 border-pink-400"
 );
 
@@ -98,7 +102,10 @@ export default function ContactUs() {
                   <FormLabel className="md:w-32">Name</FormLabel>
                   <div className="flex-1">
                     <FormControl>
-                      <Input className={INPUT_STYLES} {...field} />
+                      <Input
+                        className={form.formState.errors.name ? INPUT_ERROR_STYLES : INPUT_STYLES}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </div>
@@ -114,7 +121,11 @@ export default function ContactUs() {
                   <FormLabel className="md:w-32">Email</FormLabel>
                   <div className="flex-1">
                     <FormControl>
-                      <Input type="email" className={INPUT_STYLES} {...field} />
+                      <Input
+                        type="email"
+                        className={form.formState.errors.email ? INPUT_ERROR_STYLES : INPUT_STYLES}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </div>
@@ -130,7 +141,10 @@ export default function ContactUs() {
                   <FormLabel className="md:w-32">Subject</FormLabel>
                   <div className="flex-1">
                     <FormControl>
-                      <Input className={INPUT_STYLES} {...field} />
+                      <Input
+                        className={form.formState.errors.subject ? INPUT_ERROR_STYLES : INPUT_STYLES}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </div>
@@ -147,7 +161,7 @@ export default function ContactUs() {
                   <div className="flex-1">
                     <FormControl>
                       <Textarea
-                        className={`${INPUT_STYLES} min-h-32`}
+                        className={`${form.formState.errors.message ? INPUT_ERROR_STYLES : INPUT_STYLES} min-h-32`}
                         {...field}
                       />
                     </FormControl>

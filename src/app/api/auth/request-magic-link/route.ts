@@ -23,13 +23,15 @@ export const { POST } = route({
       try {
         const { email } = await req.json();
 
+        console.log(`[Magic Link] Generating token for ${email}`);
         const token = await AuthService.generateMagicLink(email);
 
         const magicLink = `${
           req.nextUrl.origin
         }/auth/verify?token=${token}&email=${encodeURIComponent(email)}`;
-        console.log(`Magic link for ${email}: ${magicLink}`);
+        console.log(`[Magic Link] Generated link for ${email}: ${magicLink}`);
 
+        console.log(`[Magic Link] Sending email to ${email}`);
         await EmailService.sendEmail({
           to: email,
           subject: "Your Magic Login Link",
@@ -37,14 +39,29 @@ export const { POST } = route({
           html: renderTemplate(magicLink),
         });
 
+        console.log(`[Magic Link] Email sent successfully to ${email}`);
         return TypedNextResponse.json({
           message:
             "Magic link sent to your email. Check your email and follow the link.",
         });
-      } catch (err) {
-        console.error("Magic link request error:", err);
+      } catch (err: any) {
+        console.error("[Magic Link] Error details:", {
+          message: err?.message,
+          stack: err?.stack,
+          error: err,
+        });
+
+        // Provide more specific error messages
+        let errorMessage = "Failed to send magic link";
+
+        if (err?.message?.includes("database") || err?.message?.includes("prisma")) {
+          errorMessage = "Database connection error. Please try again later.";
+        } else if (err?.message?.includes("email") || err?.message?.includes("send")) {
+          errorMessage = "Failed to send email. Please check your email address.";
+        }
+
         return TypedNextResponse.json(
-          { error: "Failed to send magic link" },
+          { error: errorMessage },
           { status: 400 }
         );
       }

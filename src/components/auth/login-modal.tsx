@@ -41,13 +41,19 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
       setStatus("success");
       setMessage(data?.message || "Check your email for a magic link.");
       setEmail("");
-    } catch (error) {
+    } catch (error: any) {
       setStatus("error");
-      if (error instanceof Error) {
-        setMessage(error.message);
-      } else {
-        setMessage("Please enter a valid email address");
-      }
+      console.error("Magic link request error:", error);
+
+      // Extract error message from different error formats
+      const errorMessage =
+        error?.payload?.error ||
+        error?.message ||
+        error?.error ||
+        (typeof error === 'string' ? error : null) ||
+        "Failed to send magic link. Please try again.";
+
+      setMessage(errorMessage);
     }
   };
 
