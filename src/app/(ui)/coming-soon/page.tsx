@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-export default function Home() {
+export default function ComingSoon() {
   return (
     <div
       className="min-h-screen bg-cover bg-center flex justify-center items-center px-6 py-12 pb-24 box-border m-0 relative"
