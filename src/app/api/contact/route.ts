@@ -18,6 +18,13 @@ export const { POST } = route({
           message: z.string(),
         }),
       },
+      {
+        status: 500,
+        contentType: "application/json",
+        body: z.object({
+          error: z.string(),
+        }),
+      },
     ])
     .handler(async (req) => {
       const startTime = Date.now();
