@@ -16,13 +16,10 @@ frontend:
       commands:
         - echo "DATABASE_URL=$DATABASE_URL" >> .env
         - echo "STRIPE_SECRET_KEY=$STRIPE_SECRET_KEY" >> .env
-        - echo "EMAIL_HOST=smtp.gmail.com" >> .env
-        - echo "EMAIL_PORT=587" >> .env
-        - echo "EMAIL_SECURE=false" >> .env
-        - echo "EMAIL_USER=" >> .env
-        - echo "EMAIL_PASS=" >> .env
-        - echo "EMAIL_FROM=" >> .env
-        - echo "EMAIL_RECEIVER=" >> .env
+        - echo "MAILGUN_SMTP_USER=$MAILGUN_SMTP_USER" >> .env
+        - echo "MAILGUN_SMTP_PASS=$MAILGUN_SMTP_PASS" >> .env
+        - echo "EMAIL_FROM=$EMAIL_FROM" >> .env
+        - echo "EMAIL_RECEIVER=$EMAIL_RECEIVER" >> .env
         - export NODE_ENV=production
         - export NEXT_TELEMETRY_DISABLED=1
         - yarn run build

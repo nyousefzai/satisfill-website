@@ -2,12 +2,12 @@ import * as nodemailer from "nodemailer";
 
 export class EmailService {
   private static transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST || "smtp.gmail.com",
-    port: parseInt(process.env.EMAIL_PORT || "587"),
-    secure: process.env.EMAIL_SECURE === "true",
+    host: "smtp.mailgun.org",
+    port: 587,
+    secure: false,
     auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
+      user: process.env.MAILGUN_SMTP_USER,
+      pass: process.env.MAILGUN_SMTP_PASS,
     },
   });
 
@@ -24,7 +24,7 @@ export class EmailService {
   }) {
     try {
       const info = await this.transporter.sendMail({
-        from: process.env.EMAIL_FROM || process.env.EMAIL_USER,
+        from: process.env.EMAIL_FROM || process.env.MAILGUN_SMTP_USER,
         to,
         subject,
         text,
