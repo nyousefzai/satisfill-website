@@ -81,7 +81,9 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
             <div className="space-y-2">
               <Label htmlFor="email">Email Address</Label>
               <Input
-                type="email"
+                type="text"
+                inputMode="email"
+                autoComplete="email"
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
